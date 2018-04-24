@@ -1,0 +1,134 @@
+bool all_distinct(string[] vocab, int v){
+    return true;
+}
+
+int count_vocab(string[] vocab, int[] freq, int v, string corpus, bool fast)
+//@requires v == \length(vocab) && v == \length(freq);
+//@requires is_sorted(vocab, 0, v);
+//@requires all_distinct(vocab, v);
+//@ensures 0 <= \result;
+{
+    // Initialize variables
+    bundle_t text = read_words(corpus);
+    int text_len = string_bundle_length(text);
+    string[] text_arr = string_bundle_array(text);
+    int result = 0;
+
+    // Iterate over every word in corpus and check whether it is in vocab
+    // if it is, increment the frequency by one, otherwise increment result
+    for (int i = 0; i < text_len; i++)
+    //@loop_invariant 0 <= i && i <= text_len;
+    //@loop_invariant v == \length(vocab) && v == \length(freq);
+    {
+        if (fast && binsearch(text_arr[i], vocab, v) != -1) {
+            freq[binsearch(text_arr[i], vocab, v)]++;
+        }
+        else if (fast && binsearch(text_arr[i], vocab, v) == -1) result++;
+
+        else if (!fast && linsearch(text_arr[i], vocab, v) != -1) {
+            freq[linsearch(text_arr[i], vocab, v)]++;
+        }
+
+        else if (!fast && linsearch(text_arr[i], vocab, v) == -1) result++;
+    }
+    return result;
+}
+
+void merge(string[] vocab, int[] freq, int lo, int mid, int hi)
+//@requires 0 <= lo && lo <= mid && mid <= hi && hi <= \length(freq);
+//@requires is_sorted_int(freq, lo, mid+1) && is_sorted_int(freq, mid+1, hi+1);
+//@ensures is_sorted_int(freq, lo, hi);
+{
+    // Initalize temporary arrays
+    string[] tmp_vocab_1 = alloc_array(string, mid - lo + 1 );
+    string[] tmp_vocab_2 = alloc_array(string, hi - mid);
+
+    int[] tmp_freq_1 = alloc_array(int, mid - lo + 1);
+    int[] tmp_freq_2 = alloc_array(int, hi - mid);
+
+    // Copy data into temporary arrays
+    for (int i = 0; i <  mid - lo + 1; i++)
+    //@loop_invariant 0 <= i && i <= mid - lo + 1;
+    //@loop_invariant 0 <= lo + i && lo + i <= hi + 1;
+    {
+        tmp_vocab_1[i] = vocab[lo + i];
+        tmp_freq_1[i] = freq[lo + i];
+    }
+    for (int j = 0; j < hi - mid; j++)
+    //@loop_invariant 0 <= j && j <= hi - mid;
+    //@loop_invariant 0 <= lo + j && lo + j <= hi + 1;
+    {
+        tmp_vocab_2[j] = vocab[mid + 1 + j];
+        tmp_freq_2[j] = freq[mid + 1 + j];
+    }
+
+    // Merge subarrays into main arrays
+    int i = 0;
+    int j = 0;
+    int k = lo;
+
+    // Compare each element in subarrays and put the smaller one in main array
+    while (i < mid - lo + 1 && j < hi - mid)
+    //@loop_invariant 0 <= i && i <= mid - lo + 1;
+    //@loop_invariant 0 <= j && j <= hi - mid;
+    //@loop_invariant lo <= k && k <= hi+1;
+    {
+        if (tmp_freq_1[i] <= tmp_freq_2[j]) {
+            freq[k] = tmp_freq_1[i];
+            vocab[k] = tmp_vocab_1[i];
+            i++;
+        } else {
+            freq[k] = tmp_freq_2[j];
+            vocab[k] = tmp_vocab_2[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Put leftover elements in array
+    while (i < mid - lo + 1)
+    //@loop_invariant 0 <= i && i <= mid - lo + 1;
+    //@loop_invariant lo <= k && k <= hi + 1;
+    {
+        freq[k] = tmp_freq_1[i];
+        vocab[k] = tmp_vocab_1[i];
+        i++;
+        k++;
+    }
+
+    while (j < hi - mid)
+    //@loop_invariant 0 <= j && j <= hi - mid;
+    //@loop_invariant lo <= k && k <= hi + 1;
+    {
+        freq[k] = tmp_freq_2[j];
+        vocab[k] = tmp_vocab_2[j];
+        j++;
+        k++;
+    }
+
+}
+
+// Recursive Mergesort
+void mergesort(string[] vocab, int[] freq, int lo, int hi)
+//@requires 0 <= lo && lo <= hi && hi <= \length(freq);
+//@ensures is_sorted_int(freq, lo, hi);
+{
+    if (lo < hi) {
+
+        int mid = lo + (hi - lo)/2;
+
+    // Recursive Calls
+        mergesort(vocab, freq, lo, mid);
+        mergesort(vocab, freq, mid + 1, hi);
+        merge(vocab, freq, lo, mid, hi);
+    }
+}
+
+void sort_by_freq(string[] vocab, int[] freq, int v)
+//@requires v == \length(vocab) && v == \length(freq);
+//@ensures is_sorted_int(freq, 0, v);
+{
+    int hi = v - 1;
+    int lo = 0;
+    mergesort(vocab, freq, lo, hi);
+}

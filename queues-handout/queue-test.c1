@@ -1,0 +1,66 @@
+#use <conio>
+int main() {
+    queue_t A = queue_new();
+    int* p1 = alloc(int);
+    int* p2 = alloc(int);
+    int* p3 = alloc(int);
+    int* p4 = alloc(int);
+    int* p5 = alloc(int);
+    int* p6 = alloc(int);
+    int* p7 = alloc(int);
+    int* p8 = alloc(int);
+    int* p9 = alloc(int);
+    int* p11 = alloc(int);
+    int* p12 = alloc(int);
+    int* p13 = alloc(int);
+    int* p14 = alloc(int);
+    int* p15 = alloc(int);
+
+    *p1 = 8;
+    *p2 = -1;
+    *p3 = -2;
+    *p4 = 2;
+    *p5 = 3;
+    *p6 = -10;
+    *p7 = -20;
+    *p8 = -22;
+    *p9 = 29;
+    enq(A, (void*)p1);
+    enq(A, (void*)p2);
+    enq(A, (void*)p3);
+    enq(A, (void*)p6);
+    enq(A, NULL);
+
+    assert(*((int*)queue_iterate(A, NULL, &find_negative)) == -1);
+    queue_reverse(A);
+    queue_all(A, &incr);
+
+    queue_t B = queue_new();
+
+    enq(B, (void*)p7);
+    enq(B, (void*)p8);
+    enq(B, (void*)p9);
+    printint(*((int*)queue_peek(B, 0)));
+    print("\n");
+    printint(*((int*)queue_peek(B, 1)));
+    print("\n");
+    printint(*((int*)queue_peek(B, 2)));
+    print("\n");
+
+    queue_t R = queue_new();
+    while (queue_size(B) > 0) {
+        int* q = alloc(int);
+        void* q2 = deq(B);
+        *q = *(int*)q2;
+        queue_iterate(R, (void*)q, &insert);
+        enq(R, (void*)q); }
+
+    printint(*((int*)queue_peek(R, 0)));
+    print("\n");
+    printint(*((int*)queue_peek(R, 1)));
+    print("\n");
+    printint(*((int*)queue_peek(R, 2)));
+    print("\n");
+
+    return 0;
+}

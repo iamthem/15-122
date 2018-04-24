@@ -1,0 +1,94 @@
+#use <args>
+#use <conio>
+
+void question_1(string[] vocab, int vocab_len, int[] freq)
+{
+    sort_by_freq(vocab, freq, vocab_len);
+    string line0 = string_join("1. '", vocab[vocab_len - 1]);
+    string line1= string_join("' appears ", string_fromint(freq[vocab_len-1]));
+    println(string_join(string_join(line0, line1), " times"));
+
+    string line2 = string_join("2. '", vocab[vocab_len - 2]);
+    string line3= string_join("' appears ", string_fromint(freq[vocab_len-2]));
+    println(string_join(string_join(line2, line3), " times"));
+
+    string line4 = string_join("3. '", vocab[vocab_len - 3]);
+    string line5= string_join("' appears ", string_fromint(freq[vocab_len-3]));
+    println(string_join(string_join(line4, line5), " times"));
+
+    string line6 = string_join("4. '", vocab[vocab_len - 4]);
+    string line7= string_join("' appears ", string_fromint(freq[vocab_len-4]));
+    println(string_join(string_join(line6, line7), " times"));
+
+
+}
+
+void question_2(string[] vocab, int vocab_len, int[] freq)
+{
+    string template = "These words appeared 82 times in the text corpus: ";
+    for (int i = 0; i < vocab_len; i++)
+    {
+        if (freq[i] == 82) {
+        template = string_join(template, string_join(vocab[i], " "));
+        }
+    }
+    println(template);
+
+}
+void question_3(string[] vocab, int vocab_len, int[] freq)
+{
+    sort_by_freq(vocab, freq, vocab_len);
+
+    int counter = 0;
+    int i = 1;
+    int j = 1;
+    int answer1 = 0;
+    int answer2 = 0;
+    while (counter < 2 && i < vocab_len)
+    {
+        if (freq[i] - freq[i - 1] > 1 && answer1 == 0)
+        {
+        answer1 = freq[i-1]+1;
+        counter++;
+        }
+        else if (freq[i] - freq[i - 1] > 1 && answer1 != 0)
+        {
+            answer2 = freq[i-1]+1;
+            counter++;
+        }
+        i++;
+    }
+    string line0 = "In this corpus, there are no words ";
+    string line1 = string_join("with frequency ", string_fromint(answer1));
+    string line2 = string_join( string_join(" or ", string_fromint(answer2)),
+                    " in the corpus.");
+    println(string_join(string_join(line0, line1), line2));
+
+
+}
+
+void question_4(string[] vocab, int vocab_len, int[] freq)
+{
+}
+
+void convert_array(string[] argv)
+{
+    bundle_t vocab_bundle = read_words(argv[0]);
+    int vocab_len = string_bundle_length(vocab_bundle);
+    string[] vocab = string_bundle_array(vocab_bundle);
+    int[] freq = alloc_array(int, vocab_len);
+    count_vocab(vocab, freq, vocab_len, argv[1], true);
+    question_1(vocab, vocab_len, freq);
+    question_2(vocab, vocab_len, freq);
+    question_3(vocab, vocab_len, freq);
+    question_4(vocab, vocab_len, freq);
+}
+
+int main()
+{
+    args_t args = args_parse();
+    int argc = args->argc;
+    string[] argv = args->argv;
+    convert_array(argv);
+    return 0;
+}

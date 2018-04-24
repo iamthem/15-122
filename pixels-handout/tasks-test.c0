@@ -1,0 +1,14 @@
+/* Testing */
+
+#use <conio>
+
+int main() {
+  test_opacify();
+
+  test_quantize();
+
+  test_histogram();
+
+  println("All tests passed!");
+  return 0;
+}

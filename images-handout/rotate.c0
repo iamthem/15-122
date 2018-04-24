@@ -1,0 +1,110 @@
+/* typedef int pixel; */
+
+//rotates image by 90 degrees
+pixel[] transform(pixel[] pixels, int width, int height)
+//@requires \length(pixels) > 0;
+//@ensures \length(\result) == \length(pixels);
+{
+    //Initialize variables
+    pixel[] result = alloc_array(pixel, width*height);
+    int new_row = 0;
+    int new_col = 0;
+
+    for (int i = 0; i < height; i++)
+    //@loop_invariant 0 <= i && i <= height;
+    //@loop_invariant 0 <= new_row && new_row <= height;
+    {
+
+        // Iterate backwards through columns
+        for (int j = width - 1; j > -1; j--)
+        //@loop_invariant width > j && j >= -1;
+        //@loop_invariant 0 <= new_col && new_col <= width;
+        {
+            int old_index = get_index(j, i, width, height);
+            int new_index = get_index(new_row, new_col, width, height);
+            result[new_index] = pixels[old_index];
+            new_col++;
+            if (new_col == width) new_col = 0;
+        }
+        new_row++;
+    }
+    return result;
+}
+
+pixel[] rotate(pixel[] pixels, int width, int height)
+//@requires width == height;
+//@requires \length(pixels) == width * height;
+{
+    //Initiallize variables
+    int i = 0;
+    int j = 0;
+    pixel[] B = alloc_array(pixel, (2*width) * (2*height));
+
+    // Copy original array to avoid destruction
+    pixel[] pixels_copy = alloc_array(pixel, width * height);
+    for (i = 0; i < width * height; i++) {
+        pixels_copy[i] = pixels[i];
+    }
+
+    // Draw normal Andrew
+    for (i = 0; i < height; i++)
+    //@loop_invariant 0 <= i && i <= height;
+    {
+        for (j = 0; j < width; j++)
+        //@loop_invariant 0 <= j && j <= width;
+        {
+            int new_index = get_index(i, j+width, width*2, height*2);
+            B[new_index] = pixels_copy[get_index(i, j, width, height)];
+        }
+    }
+
+    //Rotate by 90
+    pixel[] C = alloc_array(pixel, width * height);
+    C = transform(pixels_copy, width, height);
+
+    // Draw 90 degrees clockwise Andrew
+    for (i = 0; i < height; i++)
+    //@loop_invariant 0 <= i && i <= height;
+    {
+        for (j = 0; j < width; j++)
+        //@loop_invariant 0 <= j && j <= width;
+        {
+            int new_index = get_index(i+height, j+width, width*2, height*2);
+            B[new_index] = C[get_index(i, j, width, height)];
+        }
+    }
+
+    //Rotate by 90
+    pixel[] D = alloc_array(pixel, width * height);
+    D = transform(C, width, height);
+
+    // Draw 180 degrees clockwise Andrew
+    for (i = 0; i < height; i++)
+    //@loop_invariant 0 <= i && i <= height;
+    {
+        for (j = 0; j < width; j++)
+        //@loop_invariant 0 <= j && j <= width;
+        {
+            int new_index = get_index(i+height, j, width*2, height*2);
+            B[new_index] = D[get_index(i, j, width, height)];
+        }
+    }
+
+    //Rotate by 90
+    pixel[] E = alloc_array(pixel, width * height);
+    E = transform(D, width, height);
+
+    // Draw 270 degrees clockwise Andrew
+    for (i = 0; i < height; i++)
+    //@loop_invariant 0 <= i && i <= height;
+    {
+       for (j = 0; j < width; j++)
+        //@loop_invariant 0 <= j && j <= width;
+        {
+            int new_index = get_index(i, j, width*2, height*2);
+            B[new_index] = E[get_index(i, j, width, height)];
+        }
+    }
+    return B;
+}
+

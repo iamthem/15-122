@@ -1,0 +1,98 @@
+// Allows you to use I/O functions like print and println
+#use <conio>
+// Allows you to use string functions like string_join
+#use <string>
+// Allows you to use utility functions like abs() and min()
+#use <util>
+
+bool is_substring(string little, string big) {
+  int len = string_length(little);
+  int offset = string_length(big) - len;
+  while (offset >= 0)
+  //@loop_invariant offset <= string_length(big) - string_length(little);
+  {
+    if (string_equal(little, string_sub(big, offset, offset+len))) return true;
+    offset--;
+  }
+  return false;
+}
+int common_prefix(string s1, string s2)
+//@ensures 0 <= \result && \result <= string_length(s1);
+//@ensures 0 <= \result && \result <= string_length(s2);
+//@ensures string_equal(string_sub(s1, 0, \result), string_sub(s2, 0, \result));
+/*@ensures \result == string_length(s1)
+  @     || \result == string_length(s2)
+  @     || string_charat(s1, \result) != string_charat(s2, \result); @*/
+{
+    string big = "";
+    string small = "";
+    string prefix = "";
+    int result = 0;
+
+    if (string_length(s1) < string_length(s2)) {
+        small = s1;
+        big = s2;
+    } else {
+        small = s2;
+        big = s1;
+    }
+
+    for (int i = 1; i <= string_length(small); i++) {
+        prefix = string_sub(small, 0, i);
+        if (is_substring(prefix, big)) {
+            result = i;
+        }
+    }
+    return result;
+}
+
+int find_nonrepeating_position(string s)
+//@requires string_length(s) > 0;
+//@requires string_charat(s, 0) != string_charat(s, string_length(s) - 1);
+//@ensures 0 <= \result && \result < string_length(s)-1;
+//@ensures string_charat(s, \result) == string_charat(s, 0);
+//@ensures string_charat(s, \result+1) != string_charat(s, 0);
+{
+    char[] arrayS = string_to_chararray(s);
+    int i = 0;
+    while (i < string_length(s)-1 && arrayS[i] == arrayS[i+1]) i++;
+    return i;
+}
+
+
+bool check_char(string s, char c, int i) {
+    char[] arrayS = string_to_chararray(s);
+    bool result = false;
+    i++;
+    while (i < string_length(s)) {
+        if (arrayS[i] == c) result = true;
+        i++;
+    }
+    return result;
+}
+
+string same_start_end(string s)
+//@ensures is_substring(\result, s);
+/*@ensures string_length(s) < 128
+  @     || (string_length(\result) > 1
+  @         && string_charat(\result, 0)
+  @            == string_charat(\result, string_length(\result) - 1)); @*/
+{
+    char[] arrayS = string_to_chararray(s);
+    char charTmp = '\0';
+    string strTmp = "";
+
+    for (int i = 0; i < string_length(s); i++) {
+        charTmp = arrayS[i];
+        if (check_char(s, charTmp, i)) {
+            for (int j = i; j < string_length(s); j++) {
+                if (j != i && arrayS[j] == charTmp) {
+                    return string_join(strTmp, string_fromchar(arrayS[j]));
+                }
+                strTmp = string_join(strTmp, string_fromchar(arrayS[j]));
+            }
+        }
+        charTmp = '\0';
+    }
+    return "";
+}

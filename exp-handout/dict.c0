@@ -1,0 +1,120 @@
+/*
+ * Interface for dictionaries
+ *
+ * 15-122 Principles of Imperative Computation
+ */
+
+#use <string>
+#use <conio>
+
+/* Interface to dictionaries (leave this alone) */
+
+// typedef ______* dict_t;
+typedef struct dict_header* dict_t;
+
+// Returns NULL if the input array has the same operator twice
+dict_t dict_new(string[] A, int n)
+  /*@requires \length(A) == n; @*/
+  /*@requires is_infix_array(A, n); @*/ ;
+
+// Returns -1 if no definition is found
+int dict_lookup(dict_t D, string oper)
+  /*@requires D != NULL; @*/
+  /*@ensures \result >= -1; @*/ ;
+
+/* Implementation to dictionaries should go here (implement this) */
+
+// Abbreviation and implementation type
+typedef struct dict_header dict;
+struct dict_header {
+    string[] prec_array;
+    int len;
+};
+
+// Check to see whether a given pointer D is a dictionary
+bool is_dict(dict* D){
+    return D != NULL && is_infix_array(D->prec_array, D->len);
+}
+
+// Make a new dictionary
+dict* dict_new(string[] A, int n)
+//@requires \length(A) == n;
+//@requires is_infix_array(A,n);
+//@ensures is_dict(\result) || \result == NULL;
+{
+    // Find total number of characters
+    int total_chars = 0;
+    for (int i = 0; i < n; i++)
+    //@loop_invariant 0 <= i && i <= n;
+    {
+        total_chars += num_tokens(A[i]);
+    }
+
+    //Initiate array that will contain all the characters
+    string[] char_array = alloc_array(string, total_chars);
+    string[] tmp = alloc_array(string, 0);
+    int counter = 0;
+
+    // Populate array with every character
+    for (int i = 0; i < n; i++)
+    //@loop_invariant 0 <= i && i <= n;
+    {
+        tmp = parse_tokens(A[i]);
+        for (int j = 0; j < num_tokens(A[i]); j++)
+        //@loop_invariant 0 <= j && j <= num_tokens(A[i]);
+        //@loop_invariant 0 <= counter && counter <= total_chars;
+        {
+            char_array[counter] = tmp[j];
+            counter++;
+        }
+    }
+
+    // Check for repeats, if there is a repeat, return NULL
+    string tok = "";
+    for (int i = 0; i < total_chars; i++)
+    //@loop_invariant 0 <= i && i <= total_chars;
+    {
+        tok = char_array[i];
+        for (int j = 0; j < total_chars; j++)
+        //@loop_invariant 0 <= j && j <= total_chars;
+        {
+            if (j != i && string_equal(tok, char_array[j])) return NULL;
+        }
+    }
+
+    // Since there aren't any repeats proceed to make new dictionary
+    dict* D = alloc(dict);
+    D->len = n;
+
+    // Allocate new list to avoid aliasing bugs
+    D->prec_array = alloc_array(string, n);
+    for (int i = 0; i < n; i++)
+    //@loop_invariant 0 <= i && i <= n;
+    {
+        D->prec_array[i] = A[i];
+    }
+    return D;
+}
+
+// Look up predence value for a given token
+int dict_lookup(dict* D, string oper)
+//@requires is_dict(D);
+//@ensures \result >= -1;
+{
+    string[] tmp = alloc_array(string, 0);
+
+    // Iterate over every string of tokens and return precedence
+    for (int i = 0; i < D->len; i++)
+    //@loop_invariant 0 <= i && i <= D->len;
+    {
+        tmp = parse_tokens(D->prec_array[i]);
+        for (int j = 0; j < num_tokens(D->prec_array[i]); j++)
+        //@loop_invariant 0 <= j && j <= num_tokens(D->prec_array[i]);
+        {
+            if (string_equal(oper, tmp[j])) return i;
+        }
+    }
+
+    //Return -1 if oper is not present in the dictionary
+    return -1;
+}

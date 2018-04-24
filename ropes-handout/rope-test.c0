@@ -1,0 +1,57 @@
+#use <conio>
+#use <string>
+#use <util>
+int main() {
+    string a = "happ";
+    string b = "y birth";
+    string d = "day!";
+    string e = "yay! ";
+    string f = "L";
+    string t = "t";
+    string o = "otally";
+    string r = "efficien";
+    string z = "t";
+    rope_t T = rope_new(t);
+    rope_t O = rope_new(o);
+    rope_t TO = rope_join(T, O);
+    rope_t R = rope_new(r);
+    rope_t Z = rope_new(z);
+    rope_t RZ = rope_join(R, Z);
+    rope_t RR = rope_join(TO, RZ);
+    rope_t RS1 = rope_sub(RR, 1, 16);
+    assert(rope_length(RS1) == 15);
+    assert(string_equal(RS1->left->data, "otally"));
+    assert(rope_length(RS1->left) == 6);
+    assert(string_equal(RS1->right->left->data, "efficien"));
+    assert(rope_length(RS1->right->left) == 8);
+    assert(string_equal(RS1->right->right->data, "t"));
+    assert(rope_length(RS1->right->right) == 1);
+    assert(string_equal(rope_tostring(RS1), "otallyefficient"));
+    assert(RS1->left == RR->left->right);
+    assert(RS1->right == RR->right);
+    rope_t A = rope_new(a);
+    rope_t B = rope_new(b);
+    rope_t C = rope_join(A, B);
+    rope_t D = rope_new(d);
+    rope_t E = rope_join(C, D);
+    assert(string_equal(rope_tostring(E), "happy birthday!"));
+    assert(char_ord(rope_charat(E, 0)) == char_ord('h'));
+    assert(char_ord(rope_charat(E, 4)) == char_ord('y'));
+    assert(char_ord(rope_charat(E, 10)) == char_ord('h'));
+    assert(char_ord(rope_charat(E, 11)) == char_ord('d'));
+    assert(char_ord(rope_charat(E, 14)) == char_ord('!'));
+    rope_t ee = rope_new(e);
+    rope_t ff = rope_new(f);
+    rope_t F = rope_join(ee, E);
+    assert(string_equal(rope_tostring(F), "yay! happy birthday!"));
+    rope_t J = rope_join(ff, F);
+
+    rope_t X = NULL;
+    assert(rope_sub(X, 0, 0) == NULL);
+    assert(string_equal(rope_tostring(X), ""));
+    assert(rope_length(X) == 0);
+    assert(rope_join(X, X) == NULL);
+    assert(J == rope_join(J, X));
+    return 0;
+}
+

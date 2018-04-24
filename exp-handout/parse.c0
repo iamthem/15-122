@@ -1,0 +1,124 @@
+#use <string>
+#use <util>
+#use <parse>
+#use <args>
+
+bool is_precstack(dict_t D, stack_t S)
+//@requires D != NULL && S != NULL;
+{
+
+    stack_t copy = stack_new();
+    string tok = "";
+    int counter = 0;
+    bool result = true;
+
+    // Push all elements into copy and count length
+    while (!stack_empty(S)){
+        push(copy, pop(S));
+        counter++;
+    }
+
+    // If stack isn't empty check that it's valid
+    if (counter > 0){
+        string top = pop(copy);
+        string second = "";
+
+        // Push elements back into S, leaving it unchanged
+        for (int i = 0; i < counter-1; i++)
+        //@loop_invariant 0 <= i && i <= counter-1;
+        {
+            second = pop(copy);
+            if (dict_lookup(D, top) >= dict_lookup(D, second)) result = false;
+            push(S, top);
+            top = second;
+        }
+        push(S, top);
+        return result;
+
+    // If stack is empty return true
+    } else return result;
+
+}
+
+bool is_exp(dict_t D, queue_t input)
+//@requires D != NULL && input != NULL;
+{
+    queue_t tmp = queue_new();
+    string tok = "";
+    int counter = 0;
+
+    // Check for invalid tokens and find length of input
+    while(!queue_empty(input))
+    {
+        tok = deq(input);
+        if (parse_int(tok, 10) == NULL
+         && dict_lookup(D, tok) == -1) return false;
+        enq(tmp, tok);
+        counter++;
+    }
+
+    if (counter > 0) {
+        string first = deq(tmp);
+        string second = "";
+        // Check whether there are consecutive digits (not allowed)
+        // Put elements back into input queue
+        for (int i = 0; i < counter-1; i++)
+        //@loop_invariant 0 <= i && i <= counter-1;
+        {
+            second = deq(tmp);
+            if (parse_int(first, 10) != NULL && parse_int(second, 10) != NULL){
+                return false;
+            }
+            enq(input, first);
+            first = second;
+        }
+        enq(input,first);
+        return true;
+    } else return false;
+}
+
+queue_t parse(dict_t D, queue_t input)
+//@requires D != NULL && input != NULL;
+//@ensures \result == NULL || queue_empty(input);
+{
+    if (!is_exp(D, input)) return NULL;
+
+    //Initiate precstack and result queue
+    stack_t precstack = stack_new();
+    queue_t result = queue_new();
+
+    // Shunting-yard algorithm
+    string tok = "";
+    string oper= "";
+    while (!queue_empty(input))
+    {
+        tok = deq(input);
+        // Integer phase
+        if (parse_int(tok, 10) != NULL) enq(result, tok);
+
+        // Operator phase
+        else {
+            if (stack_empty(precstack)) push(precstack, tok);
+            else{
+                oper = pop(precstack);
+                while (dict_lookup(D, oper) >= dict_lookup(D, tok))
+                //@loop_invariant is_precstack(D, precstack);
+                {
+                    enq(result, oper);
+                    oper = "";
+                    if (!stack_empty(precstack)) oper = pop(precstack);
+                }
+                if (dict_lookup(D, oper) < dict_lookup(D, tok)) {
+                    push(precstack, oper);
+                    push(precstack, tok);
+                }else push(precstack, tok);
+            }
+        }
+    }
+    while (!stack_empty(precstack))
+    //@loop_invariant is_precstack(D, precstack);
+    {
+        enq(result, pop(precstack));
+    }
+    return result;
+}

@@ -1,0 +1,70 @@
+#use <string>
+#use <util>
+#use <parse>
+#use <conio>
+#use <args>
+
+
+void addition(istack_t S, string tok)
+//@requires S != NULL;
+{
+    int y = 0;
+    int x = 0;
+    if (!istack_empty(S)) y = ipop(S);
+    else error("Not enough elements in the stack");
+    if (!istack_empty(S)) {
+        x = ipop(S);
+        if (string_equal(tok, "+")) ipush(S, x+y);
+        else if (string_equal(tok, "-")) ipush(S, x-y);
+    }
+    else error("Not enough elements in the stack");
+}
+
+void multiplication(istack_t S, string tok)
+//@requires S != NULL;
+{
+    int y = 0;
+    int x = 0;
+    if (!istack_empty(S)) y = ipop(S);
+    else error("Not enough elements in the stack");
+    if (!istack_empty(S)) {
+        x = ipop(S);
+        if (string_equal(tok, "*")) ipush(S, x*y);
+
+        else if (string_equal(tok, "/")){
+        if (y != 0 && (y != int_min() && y != -1)) ipush(S, x/y);
+        else if (y == 0) error("Division by zero");
+        else error("Division of int_min() by -1 is undefined");
+        }
+
+        else if (string_equal(tok, "**")) {
+            if (y == 0) ipush(S, 1);
+            else if (y > 0) {
+                int result = 1;
+                for (int i = 0; i < y; i++) result *= x;
+                ipush(S, result);
+            } else error("exponent cannot be less than zero");
+        }
+    }
+    else error("Not enough elements in the stack");
+}
+
+void eval(istack_t S, queue_t Q)
+//@requires S != NULL && Q != NULL;
+//@ensures queue_empty(Q);
+{
+    while (!queue_empty(Q))
+    {
+        string tok = deq(Q);
+        if (parse_int(tok, 10) != NULL) ipush(S, *parse_int(tok, 10));
+        else if (string_equal(tok, "+") || string_equal(tok, "-")){
+            addition(S, tok);
+        }
+        else if (string_equal(tok, "*") || string_equal(tok, "/") ||
+                 string_equal(tok, "**")){
+            multiplication(S, tok);
+        }
+        else error("invalid token");
+    }
+
+}

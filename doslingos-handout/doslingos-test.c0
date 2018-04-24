@@ -1,0 +1,97 @@
+#use <parse>
+#use <string>
+
+// Tests for doslingo.c0
+int main()
+{
+
+    string[] vocab = parse_tokens("test tico truck zeta");
+    int[] freq = alloc_array(int, 4);
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+    string tweet = "l.txt";
+
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+
+    assert(count_vocab(vocab, freq, 4, tweet, true) == 12);
+    assert(freq[0] == 1 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    string[] vocab_1 = parse_tokens("beef itch mouth road");
+
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+
+    assert(count_vocab(vocab_1, freq, 4, tweet, false) == 10);
+    assert(freq[0] == 2 && freq[1] == 0 && freq[2] == 1 && freq[3] == 0);
+
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+
+    string[] vocab_2 = parse_tokens("gun pack stop wpa");
+
+    assert(count_vocab(vocab_2, freq, 4, tweet, false) == 13);
+    assert(freq[0] == 0 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    assert(count_vocab(vocab_2, freq, 4, tweet, true) == 13);
+    assert(freq[0] == 0 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    assert(count_vocab(vocab_2, freq, 4, tweet, true) == 13);
+    assert(freq[0] == 0 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    string[] vocab_3 = parse_tokens("consider gun stop wpa");
+    freq[0] = 2;
+
+    assert(count_vocab(vocab_3, freq, 4, tweet, true) == 10);
+    assert(freq[0] == 5 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+    freq[0] = 2;
+
+    assert(count_vocab(vocab_3, freq, 4, tweet, false) == 10);
+    assert(freq[0] == 5 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0);
+
+    string[] vocab_4 = parse_tokens("consider mouth multiline next other test");
+    int[] freq_2 = alloc_array(int, 6);
+    for (int i = 0; i < 4; i++) freq_2[i] = 0;
+
+
+    assert(count_vocab(vocab_4, freq_2, 6, tweet, false) == 5);
+    assert(freq_2[0] == 3 && freq_2[1] == 1 && freq_2[2] == 1
+    && freq_2[3] == 1 && freq_2[4] == 1 && freq_2[5] == 1);
+
+    string[] vocab_5 = parse_tokens("same");
+    int[] freq_3 = alloc_array(int, 1);
+    assert(count_vocab(vocab_5, freq_3, 1, "same.txt", true) == 0);
+    assert(freq_3[0] == 4);
+
+    sort_by_freq(vocab_5, freq_3, 1);
+    assert(freq_3[0] == 4 && string_equal(vocab_5[0], "same"));
+
+    sort_by_freq(vocab_4, freq_2, 6);
+    assert(freq_2[0] == 1 && freq_2[1] == 1 && freq_2[2] == 1 &&
+    freq_2[3] == 1 && freq_2[4] == 1 && freq_2[5] == 3);
+
+    assert(string_equal(vocab_4[0], "mouth") &&
+           string_equal(vocab_4[1], "multiline") &&
+           string_equal(vocab_4[2], "next") &&
+           string_equal(vocab_4[3], "other") &&
+           string_equal(vocab_4[4], "test") &&
+           string_equal(vocab_4[5], "consider"));
+
+    int[] freq_4 = alloc_array(int, 3);
+    for (int i = 3; i > 0; i--) freq_4[3-i] = i;
+    string[] vocab_6 = parse_tokens("same other cause");
+    sort_by_freq(vocab_6, freq_4, 3);
+    assert(freq_4[0] == 1 && freq_4[1] == 2 && freq_4[2] == 3 &&
+          string_equal(vocab_6[0], "cause") &&
+          string_equal(vocab_6[1], "other") &&
+          string_equal(vocab_6[2], "same"));
+
+    for (int i = 0; i < 4; i++) freq[i] = 0;
+    sort_by_freq(vocab_2, freq, 4);
+    assert(freq[0] == 0 && freq[1] == 0 && freq[2] == 0 && freq[3] == 0 &&
+          string_equal(vocab_2[0], "gun") &&
+          string_equal(vocab_2[1], "pack") &&
+          string_equal(vocab_2[2], "stop") &&
+          string_equal(vocab_2[3], "wpa"));
+
+
+    return 0;
+}

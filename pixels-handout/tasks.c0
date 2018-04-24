@@ -1,0 +1,261 @@
+/* The file pixel.c0 describes the pixel type. It also defines the
+ * pixel interface with five functions: get_red(p), get_green(p),
+ * get_blue(p), get_alpha(p), and make_pixel(a,r,g,b).  If you're
+ * *given* a working pixel implementation, you can use the pixel
+ * interface without knowing which part of the integer is used to
+ * store the blue intensity. You don't even need to know that pixels
+ * are integers!
+ *
+ * When writing this file, only use the interface of pixel.c0. We'll
+ * check your code by compiling and running it against different
+ * implementations of the pixel interface, like the one you were given
+ * in pixel-array.c0.
+ *
+ * There are 4 tasks in this file:
+ *  - 4 - Respecting interfaces
+ *  - 5 - Implement quantize() as described in the writeup
+ *  - 6 - Testing quantize()
+ *  - 7 - histogram() */
+
+/* Task 4 - Respecting interfaces
+ *
+ * This implementation of the function opacify() takes a pixel and
+ * return a pixel with alpha intensity 0xFF and with other intensities
+ * unchanged.  It does NOT currently respect the interface to pixels:
+ * change it so that it does. */
+
+pixel_t opacify(pixel_t p) {
+    return make_pixel(0xFF, get_red(p), get_green(p), get_blue(p));
+}
+
+/* This is some code for testing the opacify() function. It *does*
+ * respect the pixel interface. You can use it to test your
+ * implementation and, if you want, extend it with your own tests, but
+ * we won't run this test code in the autograder. */
+
+bool opacify_works(pixel_t p1) {
+  pixel_t p2 = opacify(p1);
+  if (get_alpha(p2) != 0xFF)          return false;
+  if (get_red(p2)   != get_red(p1))   return false;
+  if (get_green(p2) != get_green(p1)) return false;
+  if (get_blue(p2)  != get_blue(p1))  return false;
+  return true;
+}
+
+void test_opacify() {
+  assert(opacify_works(make_pixel(0xFF, 0x01, 0x03, 0x04)));
+  assert(opacify_works(make_pixel(0x02, 0x00, 0xFF, 0xEE)));
+  assert(opacify_works(make_pixel(0xFF, 0xFF, 0xFF, 0xFF)));
+  assert(opacify_works(make_pixel(0x00, 0x00, 0x00, 0x00)));
+  assert(opacify_works(make_pixel(0x00, 0xAA, 0xBB, 0xCC)));
+}
+
+/* Task 5 - Implement quantize() as described in the writeup */
+
+pixel_t quantize(pixel_t p, int q)
+//@requires 0 <= q && q < 8;
+{
+  // Implement me!
+  int new_red = (get_red(p) >> q) << q;
+  int new_green = (get_green(p) >> q) << q;
+  int new_blue = (get_blue(p) >> q) << q;
+  return make_pixel(get_alpha(p), new_red, new_green, new_blue);
+}
+
+/* Task 6 - Testing quantize()
+ *
+ * Write some more tests for quantize. Remember to respect the pixels
+ * interface! We *will* run these tests, and will grade them based on
+ * their ability to catch buggy implementations of quantize. */
+
+void test_quantize() {
+  pixel_t p = quantize(make_pixel(0xFF, 0xFF, 0xFF, 0xFF), 4);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0xF0);
+  assert(get_green(p) == 0xF0);
+  assert(get_blue(p)  == 0xF0);
+
+
+  p = quantize(make_pixel(0xff, 0, 0, 0), 5);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x0);
+  assert(get_green(p) == 0x0);
+  assert(get_blue(p)  == 0x0);
+
+  p = quantize(make_pixel(0xff, 107, 190, 215), 5);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x60);
+  assert(get_green(p) == 0xa0);
+  assert(get_blue(p)  == 0xc0);
+
+  p = quantize(make_pixel(0xff, 0xb2, 0xcf, 0x13), 3);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0xb0);
+  assert(get_green(p) == 0xc8);
+  assert(get_blue(p)  == 0x10);
+
+  p = quantize(make_pixel(0xff, 0x49, 0x47, 0x6b), 4);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x40);
+  assert(get_green(p) == 0x40);
+  assert(get_blue(p)  == 0x60);
+
+  p = quantize(make_pixel(0xff, 0x03, 0x39, 0x88), 4);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x00);
+  assert(get_green(p) == 0x30);
+  assert(get_blue(p)  == 0x80);
+
+  p = quantize(make_pixel(0xff, 0x10, 0xe1, 0x19), 5);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x00);
+  assert(get_green(p) == 0xe0);
+  assert(get_blue(p)  == 0x00);
+
+  p = quantize(make_pixel(0xff, 0x18, 0xb3, 0xf4), 7);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x00);
+  assert(get_green(p) == 0x80);
+  assert(get_blue(p)  == 0x80);
+
+  p = quantize(make_pixel(0xff, 0x18, 0xb3, 0xf4), 2);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x18);
+  assert(get_green(p) == 0xb0);
+  assert(get_blue(p)  == 0xf4);
+
+  p = quantize(make_pixel(0xff, 0x18, 0xb3, 0xf4), 6);
+  assert(get_alpha(p) == 0xFF);
+  assert(get_red(p)   == 0x00);
+  assert(get_green(p) == 0x80);
+  assert(get_blue(p)  == 0xc0);
+}
+
+/* Task 7 - histogram()
+ *
+ * In C and C0, it's a bit difficult to return more than one value
+ * from a function. For instance, say we needed to know, given an
+ * array of pixels, how many pixels had average intensity 0, how many
+ * pixels had average intensity 1, and so on, all the way to how many
+ * many pixels had average intensity 255.
+ *
+ * We could write 256 different functions (!) to return these 256
+ * values, but what we'd like to do instead is write one loop that
+ * calculates all 256 values. Then, those 256 values are returned
+ * to the user by modifying the contents of an array that was passed
+ * to the function.
+ *
+ * The function histogram is supposed to count the number of
+ * pixels whose average intensity is i (a number between 0 and 255)
+ * and store the results in results[i], where results is an array
+ * of size 256. In other words, the pixel array A[] is an input and
+ * should not change, but the integer array results[] is an output,
+ * and we have to change it.
+ *
+ * The histogram function has a couple of bugs and therefore fails
+ * the test cases below. Fix it, but do not change the interface. (You
+ * shouldn't need to change the test cases, either.) */
+
+void histogram(pixel_t[] A, int length, int[] results)
+//@requires \length(A) == length;
+//@requires \length(results) == 256;
+{
+  for (int i = 0; i < 256; i++) {
+    results[i] = 0;
+  }
+
+  for (int i = 0; i < length; i++)
+  //@loop_invariant 0 <= i;
+  {
+    int average = (get_red(A[i]) + get_green(A[i]) + get_blue(A[i])) / 3;
+    results[average] = results[average] + 1;
+  }
+}
+
+/* This is some code for testing the function histogram(). You can
+ * use it to help you understand what histogram is supposed to do,
+ * and you can use it to test your implementation. If you want, you
+ * can extend it with your own tests, but we won't run this test code
+ * in the autograder. */
+
+pixel_t[] copy_pixels(pixel_t[] A, int length)
+//@requires length == \length(A);
+//@ensures length == \length(\result);
+//@ensures \result != A;
+{
+  pixel_t[] B = alloc_array(pixel_t, length);
+  for (int i = 0; i < length; i++)
+    //@loop_invariant 0 <= i;
+    {
+      B[i] = A[i];
+    }
+  return B;
+}
+
+bool pixels_equal(pixel_t[] A, pixel_t[] B, int length)
+//@requires length == \length(A);
+//@requires length == \length(B);
+{
+  for (int i = 0; i < length; i++)
+    //@loop_invariant 0 <= i;
+    {
+      if (get_alpha(A[i]) != get_alpha(B[i])) return false;
+      if (get_red(A[i])   != get_red(B[i]))   return false;
+      if (get_green(A[i]) != get_green(B[i])) return false;
+      if (get_blue(A[i])  != get_blue(B[i]))  return false;
+    }
+  return true;
+}
+
+void test_histogram() {
+  pixel_t[] A;
+  pixel_t[] C;
+  int[] results = alloc_array(int, 256);
+
+  // Initialize the array of pixels, make a copy.
+  A = alloc_array(pixel_t, 9);
+  A[0] = make_pixel(0xFF, 0x01, 0x01, 0x01);
+  A[1] = make_pixel(0x01, 0x00, 0xFF, 0xEE);
+  A[2] = make_pixel(0xFF, 0xFF, 0xFF, 0xFF);
+  A[3] = make_pixel(0xEE, 0xFF, 0xDD, 0x00);
+  A[4] = make_pixel(0xDD, 0xCC, 0x00, 0xFF);
+  A[5] = make_pixel(0xCC, 0x00, 0xDD, 0xEE);
+  A[6] = make_pixel(0x00, 0xEE, 0xFF, 0xDD);
+  A[7] = make_pixel(0x00, 0x00, 0x00, 0x00);
+  A[8] = make_pixel(0x00, 0xDD, 0xCC, 0xBB);
+  C = copy_pixels(A, 9);
+
+  // Compute the histogram and check the results
+  histogram(A, 9, results);
+  assert(pixels_equal(A, C, 9));
+  for (int i = 0; i < 256; i++) {
+         if (i == 0x00) assert(results[i] == 1);
+    else if (i == 0x01) assert(results[i] == 1);
+    else if (i == 0xCC) assert(results[i] == 1);
+    else if (i == 0xEE) assert(results[i] == 1);
+    else if (i == 0xFF) assert(results[i] == 1);
+    else if (i == 0x99) assert(results[i] == 2);
+    else if (i == 0x9E) assert(results[i] == 1);
+    else if (i == 0xA4) assert(results[i] == 1);
+    else assert(results[i] == 0);
+  }
+
+  // Modify both arrays of pixels
+  A[8] = make_pixel(0x00, 0x00, 0x00, 0xFF);
+  C[8] = make_pixel(0x00, 0x00, 0x00, 0xFF);
+
+  // Compute the histogram and check the results
+  histogram(A, 9, results);
+  assert(pixels_equal(A, C, 9));
+  for (int i = 0; i < 256; i++) {
+         if (i == 0x00) assert(results[i] == 1);
+    else if (i == 0x01) assert(results[i] == 1);
+    else if (i == 0x55) assert(results[i] == 1);
+    else if (i == 0xEE) assert(results[i] == 1);
+    else if (i == 0xFF) assert(results[i] == 1);
+    else if (i == 0x99) assert(results[i] == 2);
+    else if (i == 0x9E) assert(results[i] == 1);
+    else if (i == 0xA4) assert(results[i] == 1);
+    else assert(results[i] == 0);
+  }
+}

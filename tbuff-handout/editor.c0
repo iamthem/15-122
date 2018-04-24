@@ -1,0 +1,96 @@
+/*
+ * Augment doubly linked lists with row and column information.
+ *
+ * 15-122 Principles of Imperative Computation */
+
+/*** Interface ***/
+
+typedef struct editor_header editor;
+struct editor_header {
+  tbuf* buffer;
+  int row;
+  int col;
+};
+
+bool is_editor(editor* E)
+{
+    return E != NULL && is_tbuf(E->buffer);
+}
+
+/* Creates a new, empty text buffer */
+editor* editor_new()
+//@ensures is_editor(\result);
+{
+    editor* E = alloc(editor);
+    E->buffer = tbuf_new();
+    E->row = 1;
+    E->col = 0;
+    return E;
+}
+
+/* Moves the cursor forward (right) */
+void editor_forward(editor* E)
+//@requires is_editor(E);
+//@requires !tbuf_at_right(E->buffer);
+{
+    if (string_equal(string_fromchar(E->buffer->cursor->prev->data), "\n")){
+        E->col = 0;
+        E->row++;
+        tbuf_forward(E->buffer);
+    }else{
+        E->col++;
+        tbuf_forward(E->buffer);
+        }
+
+}
+
+/* Moves the cursor backward (left) */
+void editor_backward(editor* E)
+//@requires is_editor(E);
+//@requires (E->row == 1 && E->col > 0) || (E->row > 1 && E->col >= 0);
+{
+    if (string_equal(string_fromchar(E->buffer->cursor->prev->data), "\n")){
+        E->col = tbuf_col(E->buffer);
+        E->row--;
+        tbuf_backward(E->buffer);
+    }else{
+        E->col--;
+        tbuf_backward(E->buffer);
+    }
+}
+
+/* Insert a character before cursor */
+void editor_insert(editor* E, char c)
+//@requires is_editor(E);
+{
+    if (string_equal(string_fromchar(c), "\n")){
+        tbuf_insert(E->buffer, c);
+        E->col = 0;
+        E->row++;
+    }
+    else{
+        tbuf_insert(E->buffer, c);
+        E->col++;
+    }
+}
+
+/* Remove character before cursor   */
+void editor_delete(editor* E)
+//@requires is_editor(E);
+//@requires (E->row == 1 && E->col > 0) || (E->row > 1 && E->col >=0);
+{
+    if (E->buffer->start->next != E->buffer->cursor){
+        if(string_equal(string_fromchar(E->buffer->cursor->prev->data), "\n")){
+            tbuf_delete(E->buffer);
+            E->col = tbuf_col(E->buffer);
+            E->row--;
+        }else{
+            tbuf_delete(E->buffer);
+            E->col--;
+        }
+    }
+}
+void editor_up(editor* E);             /* Moves the cursor up              */
+void editor_down(editor* E);           /* Moves the cursor down            */
+
+/*** Implementation ***/

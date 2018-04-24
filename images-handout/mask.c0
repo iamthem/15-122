@@ -1,0 +1,59 @@
+/* typedef int pixel; */
+
+// Find average value of pixel
+int get_pixel_average(pixel[] pixels, int index)
+//@requires index >= 0;
+//@ensures 0 <= \result && \result <= 255;
+{
+    return ((get_red(pixels[index]) +
+            get_green(pixels[index]) +
+            get_blue(pixels[index])) / 3);
+}
+
+int[] apply_mask(pixel[] pixels, int width, int height,
+int[] mask, int maskwidth)
+//@requires \length(mask) > 0 && maskwidth % 2 == 1;
+//@requires \length(pixels) > 0;
+//@requires \length(pixels) == width * height;
+//@requires is_valid_imagesize(width, height);
+//@requires is_valid_imagesize(maskwidth, maskwidth);
+//@ensures \length(\result) == \length(pixels);
+{
+    //Initialize variables
+    int [] result = alloc_array(int, width * height);
+    int average = 0;
+    int cur_row = 0;
+    int cur_col = 0;
+
+    // Loop over entire pixels array
+    for (int i = 0; i < height * width; i++)
+    //@loop_invariant 0 <= i && i <= height*width;
+    {
+        average = 0;
+
+        //offset index of pixels to align with mask array
+        cur_row = get_row(i, width, height) - maskwidth/2;
+        cur_col = get_column(i, width, height) - maskwidth/2;
+
+        // iterate over mask array
+        for (int j = 0; j < maskwidth; j++)
+        //@loop_invariant 0 <= j && j <= maskwidth;
+        {
+            for (int l = 0; l < maskwidth; l++)
+            //@loop_invariant 0 <= l && l <= maskwidth;
+            {
+
+                //Check if current row and columns are in pixels
+                if (is_valid_pixel(cur_row+j, cur_col+l, width, height)){
+
+                // Calculate average
+                average += (mask[get_index(j,l,maskwidth, maskwidth)]
+                * get_pixel_average(pixels, get_index(cur_row+j, cur_col+l,
+                                    width, height)));
+                }
+            }
+        }
+        result[i] = average;
+    }
+    return result;
+}

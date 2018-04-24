@@ -1,0 +1,42 @@
+#use <util>
+#use <string>
+
+int main() {
+    int score = 0;
+
+    bloom_t A = bloom_new(1);
+    if (bloom_contains(A, "test")) return 0;
+
+    assert(A != NULL);
+    bloom_add(A, "");
+    assert(bloom_contains(A, ""));
+
+
+
+    bloom_t D = bloom_new(2);
+    bloom_add(D, "test");
+    if (!bloom_contains(D, "tist")) score+=10;
+    bloom_add(D, "notest");
+    assert(bloom_contains(D, "notest"));
+    assert(bloom_contains(D, "test"));
+    bloom_add(D, "no");
+    if (bloom_contains(D, "no")) score+=10;
+    bloom_add(D, "yes");
+    if (bloom_contains(D, "yes")) score+=10;
+
+    bloom_t E = bloom_new(10);
+    bloom_add(E, "test");
+    assert(bloom_contains(E, "test"));
+    bloom_add(E, "test");
+    assert(E != NULL);
+
+    for (int i = 0; i < 100; i++) {
+        bloom_add(E, string_fromint(i));
+    }
+
+    if (bloom_contains(E, "20")) score+=35;
+
+    if (!bloom_contains(E, "101")) score += 35;
+
+    return score;
+}

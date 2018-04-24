@@ -1,0 +1,60 @@
+// Tests for implementation of pixel interface
+int main() {
+    get_green(0x12595236);
+    get_red(0x12595236);
+    get_blue(0x12595236);
+    get_alpha(0x12595236);
+
+    get_green(0x0);
+    get_red(0x0);
+    get_alpha(0x0);
+    get_blue(0x0);
+
+    get_green(0xffffffff);
+    get_blue(0xffffffff);
+    get_red(0xffffffff);
+    get_alpha(0xffffffff);
+
+    make_pixel(23, 122, 233, 254);
+    make_pixel(0,0,0,0);
+    make_pixel(255, 255, 255, 255);
+
+
+    assert(get_red(0x12595236) == 0x59);
+    assert(get_red(0x00000000) == 0);
+    assert(get_red(0xffffffff) == 0xff);
+    assert(get_red(0x9fFFA62F) == 255);
+    assert(get_red(0x31C923CC) == 201);
+    assert(get_red(0x9074D765) == 116);
+
+
+    assert(get_green(0x12595236) == 82);
+    assert(get_green(0x00000000) == 0);
+    assert(get_green(0xffffffff) == 0xff);
+    assert(get_green(0x9fFFA62F) == 166);
+    assert(get_green(0x31C923CC) == 35);
+    assert(get_green(0x9074D765) == 215);
+
+    assert(get_blue(0x12595236) == 54);
+    assert(get_blue(0x00000000) == 0);
+    assert(get_blue(0xffffffff) == 0xff);
+    assert(get_blue(0x9fFFA62F) == 47);
+    assert(get_blue(0x31C923CC) == 204);
+    assert(get_blue(0x9074D765) == 101);
+
+    assert(get_alpha(0x12595236) == 18);
+    assert(get_alpha(0x00000000) == 0);
+    assert(get_alpha(0xffffffff) == 0xff);
+    assert(get_alpha(0x9fFFA62F) == 159);
+    assert(get_alpha(0x31C923CC) == 49);
+    assert(get_alpha(0x9074D765) == 144);
+
+    assert(make_pixel(0x12, 0x59, 0x52, 0x36) == 0x12595236);
+    assert(make_pixel(0,0,0,0) == 0);
+    assert(make_pixel(0xff, 0xff, 0xff, 0xff) == 0xffffffff);
+    assert(make_pixel(0x9f, 0xFF, 0xA6, 0x2F) == 0x9fFFA62F);
+    assert(make_pixel(0x31, 0xC9, 0x23, 0xCC) == 0x31C923CC);
+    assert(make_pixel(0x90, 0x74, 0xD7, 0x65) == 0x9074D765);
+
+    return 0;
+}

@@ -1,0 +1,153 @@
+#use <string>
+/*
+ * Text buffers as doubly linked lists.
+ *
+ * 15-122 Principles of Imperative Computation */
+
+/*** Interface ***/
+
+typedef struct dll_node dll;
+struct dll_node {
+  char data;
+  dll* next;
+  dll* prev;
+};
+
+typedef struct tbuf_header tbuf;
+struct tbuf_header {
+  dll* start;  /* the fist node of the list (on the left)  */
+  dll* cursor; /* the position where the cursor is displayed */
+  dll* end;    /* the last node of the list (on the right) */
+};
+
+// Checks whether (a, b) is a valid segment
+bool is_dll_segment(dll* a, dll* b)
+{
+    if (a == NULL) return false;
+    if (b == NULL) return false;
+    dll* l = a;
+    dll* m = b;
+    while (l != NULL && m != NULL) {
+        if (l == b && m == a) return true;
+        l = l->next;
+        m = m->prev;
+    }
+    return false;
+}
+
+// Checks whether B is a valid text buffer
+bool is_tbuf(tbuf* B)
+{
+    return B != NULL && B->start != B->cursor &&
+    is_dll_segment(B->start, B->end) && is_dll_segment(B->start, B->cursor)
+    && is_dll_segment(B->cursor, B->end);
+}
+
+// Returns true if the cursor is in leftmost position
+bool tbuf_at_left(tbuf* B)
+//@requires is_tbuf(B);
+{
+    return B->start->next == B->cursor;
+}
+
+// Returns true if the cursor is in rightmost position
+bool tbuf_at_right(tbuf* B)
+//@requires is_tbuf(B);
+{
+    return B->end == B->cursor;
+}
+
+// Creates a new, empty text buffer
+tbuf* tbuf_new()
+//@ensures is_tbuf(\result);
+{
+    tbuf* T = alloc(tbuf);
+    dll* a = alloc(dll);
+    dll* b = alloc(dll);
+    a->next = b;
+    b->prev = a;
+    T->start = a;
+    T->end = b;
+    T->cursor = b;
+    return T;
+}
+
+// Moves the cursor forward (right)
+void tbuf_forward(tbuf* B)
+//@requires is_tbuf(B);
+//@requires !tbuf_at_right(B);
+{
+    B->cursor = B->cursor->next;
+}
+
+// Moves the cursor backward (left)
+void tbuf_backward(tbuf* B)
+//@requires is_tbuf(B);
+//@requires !tbuf_at_left(B);
+{
+    B->cursor = B->cursor->prev;
+}
+
+/* Insert a character before cursor */
+void tbuf_insert(tbuf* B, char c)
+//@requires is_tbuf(B);
+{
+    dll* curr = alloc(dll);
+    curr->data = c;
+    curr->prev = B->cursor->prev;
+    B->cursor->prev->next = curr;
+    B->cursor->prev = curr;
+    curr->next = B->cursor;
+}
+
+/* Remove character before cursor (and returns the deleted char)   */
+char tbuf_delete(tbuf* B)
+//@requires is_tbuf(B);
+//@requires B->start->next != B->cursor;
+{
+    char result = B->cursor->prev->data;
+    B->cursor->prev->prev->next = B->cursor;
+    B->cursor->prev = B->cursor->prev->prev;
+    return result;
+}
+
+/* Returns the row of the cursor    */
+int tbuf_row(tbuf* B)
+//@requires is_tbuf(B);
+{
+    int counter = 0;
+    dll* a = B->cursor;
+    if(a->data != '\0' && string_equal(string_fromchar(a->data),"\n")){
+        a = a->prev;
+    }
+    while (a != B->start) {
+        if(a->data != '\0' && string_equal(string_fromchar(a->data),"\n")){
+            counter++;
+        }
+        a = a->prev;
+    }
+    if (a == B->start) counter++;
+    return counter;
+}
+
+/*Returns the column of the cursor */
+int tbuf_col(tbuf* B)
+//@requires is_tbuf(B);
+{
+    int counter = 0;
+    dll* a = B->cursor;
+
+    if (a->data == '\0'){
+        a = a->prev;
+        counter++;
+    }
+    else if (string_equal(string_fromchar(a->data),"\n")){
+        a = a->prev;
+    }
+    if (a == B->start) return counter-1;
+    while(a->prev != B->start && !string_equal(string_fromchar(a->data), "\n")) {
+        counter++;
+        a = a->prev;
+    }
+    return counter;
+}
