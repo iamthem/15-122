@@ -1,0 +1,933 @@
+C0 C0 FF EE       # magic number
+00 13             # version 9, arch = 1 (64 bits)
+
+00 56             # int pool count
+# int pool
+00 01 86 A0
+00 03 0D 40
+00 04 93 E0
+00 06 1A 80
+00 07 A1 20
+00 09 27 C0
+00 0A AE 60
+00 0C 35 00
+00 0D BB A0
+00 0F 42 40
+00 10 C8 E0
+00 12 4F 80
+00 13 D6 20
+00 15 5C C0
+00 16 E3 60
+00 18 6A 00
+00 19 F0 A0
+00 1B 77 40
+00 1C FD E0
+00 1E 84 80
+00 20 0B 20
+00 21 91 C0
+00 23 18 60
+00 24 9F 00
+00 26 25 A0
+00 27 AC 40
+00 29 32 E0
+00 2A B9 80
+00 2C 40 20
+00 2D C6 C0
+00 2F 4D 60
+00 30 D4 00
+00 32 5A A0
+00 33 E1 40
+00 35 67 E0
+00 36 EE 80
+00 38 75 20
+00 39 FB C0
+00 3B 82 60
+00 3D 09 00
+00 3E 8F A0
+00 40 16 40
+00 41 9C E0
+00 43 23 80
+00 44 AA 20
+00 46 30 C0
+00 47 B7 60
+00 49 3E 00
+00 4A C4 A0
+00 4C 4B 40
+00 4D D1 E0
+00 4F 58 80
+00 50 DF 20
+00 52 65 C0
+00 53 EC 60
+00 55 73 00
+00 56 F9 A0
+00 58 80 40
+00 5A 06 E0
+00 5B 8D 80
+00 5D 14 20
+00 5E 9A C0
+00 60 21 60
+00 61 A8 00
+00 63 2E A0
+00 64 B5 40
+00 66 3B E0
+00 67 C2 80
+00 69 49 20
+00 6A CF C0
+00 6C 56 60
+00 6D DD 00
+00 6F 63 A0
+00 70 EA 40
+00 72 70 E0
+00 73 F7 80
+00 75 7E 20
+00 77 04 C0
+00 78 8B 60
+00 00 27 10
+00 00 27 10
+11 11 11 11
+00 00 03 E8
+00 0F 42 40
+00 0F 42 3F
+05 F5 E0 FF
+
+00 97             # string pool total size
+# string pool
+73 61 76 61 67 65 2E 63 30 3A 31 36 34 2E 39 2D 31 36 34 2E 32 32 3A 20 61 73 73 65 72 74 20 66 61 69 6C 65 64 00  # "savage.c0:164.9-164.22: assert failed"
+68 65 6C 6C 6F 0A 00  # "hello\n"
+68 65 6C 6C 6F 00  # "hello"
+74 68 65 72 65 61 73 64 61 73 64 61 73 64 61 73 64 00  # "thereasdasdasdasd"
+00  # ""
+00  # ""
+00  # ""
+20 69 73 20 74 68 65 20 66 61 63 74 6F 72 69 61 6C 20 6F 66 20 36 00  # " is the factorial of 6"
+74 72 75 65 00  # "true"
+59 45 53 00  # "YES"
+00  # ""
+33 00  # "3"
+39 38 31 32 00  # "9812"
+00  # ""
+33 00  # "3"
+00  # ""
+68 65 6C 6C 6F 20 77 6F 72 6C 64 21 00  # "hello world!"
+0A 70 72 69 6E 74 69 6E 67 20 63 3A 20 00  # "\nprinting c: "
+00  # ""
+5B 00  # "["
+2C 20 00  # ", "
+5D 00  # "]"
+
+00 03             # function count
+# function_pool
+
+#<main>
+00 00             # number of arguments = 0
+00 5A             # number of local variables = 90
+05 CA             # code length = 1482 bytes
+10 08    # bipush 8        # 8
+36 00    # vstore 0        # asdasdas = 8;
+10 02    # bipush 2        # 2
+B8 00 01 # invokestatic 1  # test(2)
+36 01    # vstore 1        # a0 = test(2);
+10 00    # bipush 0        # 0
+36 02    # vstore 2        # sum = 0;
+13 00 00 # ildc 0          # c[0] = 100000
+36 03    # vstore 3        # a1 = 100000;
+13 00 01 # ildc 1          # c[1] = 200000
+36 04    # vstore 4        # a2 = 200000;
+13 00 02 # ildc 2          # c[2] = 300000
+36 05    # vstore 5        # a3 = 300000;
+13 00 03 # ildc 3          # c[3] = 400000
+36 06    # vstore 6        # a4 = 400000;
+13 00 04 # ildc 4          # c[4] = 500000
+36 07    # vstore 7        # a5 = 500000;
+13 00 05 # ildc 5          # c[5] = 600000
+36 08    # vstore 8        # a6 = 600000;
+13 00 06 # ildc 6          # c[6] = 700000
+36 09    # vstore 9        # a7 = 700000;
+13 00 07 # ildc 7          # c[7] = 800000
+36 0A    # vstore 10       # a8 = 800000;
+13 00 08 # ildc 8          # c[8] = 900000
+36 0B    # vstore 11       # a9 = 900000;
+13 00 09 # ildc 9          # c[9] = 1000000
+36 0C    # vstore 12       # a10 = 1000000;
+13 00 0A # ildc 10         # c[10] = 1100000
+36 0D    # vstore 13       # a11 = 1100000;
+13 00 0B # ildc 11         # c[11] = 1200000
+36 0E    # vstore 14       # a12 = 1200000;
+13 00 0C # ildc 12         # c[12] = 1300000
+36 0F    # vstore 15       # a13 = 1300000;
+13 00 0D # ildc 13         # c[13] = 1400000
+36 10    # vstore 16       # a14 = 1400000;
+13 00 0E # ildc 14         # c[14] = 1500000
+36 11    # vstore 17       # a15 = 1500000;
+13 00 0F # ildc 15         # c[15] = 1600000
+36 12    # vstore 18       # a16 = 1600000;
+13 00 10 # ildc 16         # c[16] = 1700000
+36 13    # vstore 19       # a17 = 1700000;
+13 00 11 # ildc 17         # c[17] = 1800000
+36 14    # vstore 20       # a18 = 1800000;
+13 00 12 # ildc 18         # c[18] = 1900000
+36 15    # vstore 21       # a19 = 1900000;
+13 00 13 # ildc 19         # c[19] = 2000000
+36 16    # vstore 22       # a20 = 2000000;
+13 00 14 # ildc 20         # c[20] = 2100000
+36 17    # vstore 23       # a21 = 2100000;
+13 00 15 # ildc 21         # c[21] = 2200000
+36 18    # vstore 24       # a22 = 2200000;
+13 00 16 # ildc 22         # c[22] = 2300000
+36 19    # vstore 25       # a23 = 2300000;
+13 00 17 # ildc 23         # c[23] = 2400000
+36 1A    # vstore 26       # a24 = 2400000;
+13 00 18 # ildc 24         # c[24] = 2500000
+36 1B    # vstore 27       # a25 = 2500000;
+13 00 19 # ildc 25         # c[25] = 2600000
+36 1C    # vstore 28       # a26 = 2600000;
+13 00 1A # ildc 26         # c[26] = 2700000
+36 1D    # vstore 29       # a27 = 2700000;
+13 00 1B # ildc 27         # c[27] = 2800000
+36 1E    # vstore 30       # a28 = 2800000;
+13 00 1C # ildc 28         # c[28] = 2900000
+36 1F    # vstore 31       # a29 = 2900000;
+13 00 1D # ildc 29         # c[29] = 3000000
+36 20    # vstore 32       # a30 = 3000000;
+13 00 1E # ildc 30         # c[30] = 3100000
+36 21    # vstore 33       # a31 = 3100000;
+13 00 1F # ildc 31         # c[31] = 3200000
+36 22    # vstore 34       # a32 = 3200000;
+13 00 20 # ildc 32         # c[32] = 3300000
+36 23    # vstore 35       # a33 = 3300000;
+13 00 21 # ildc 33         # c[33] = 3400000
+36 24    # vstore 36       # a34 = 3400000;
+13 00 22 # ildc 34         # c[34] = 3500000
+36 25    # vstore 37       # a35 = 3500000;
+13 00 23 # ildc 35         # c[35] = 3600000
+36 26    # vstore 38       # a36 = 3600000;
+13 00 24 # ildc 36         # c[36] = 3700000
+36 27    # vstore 39       # a37 = 3700000;
+13 00 25 # ildc 37         # c[37] = 3800000
+36 28    # vstore 40       # a38 = 3800000;
+13 00 26 # ildc 38         # c[38] = 3900000
+36 29    # vstore 41       # a39 = 3900000;
+13 00 27 # ildc 39         # c[39] = 4000000
+36 2A    # vstore 42       # a40 = 4000000;
+13 00 28 # ildc 40         # c[40] = 4100000
+36 2B    # vstore 43       # a41 = 4100000;
+13 00 29 # ildc 41         # c[41] = 4200000
+36 2C    # vstore 44       # a42 = 4200000;
+13 00 2A # ildc 42         # c[42] = 4300000
+36 2D    # vstore 45       # a43 = 4300000;
+13 00 2B # ildc 43         # c[43] = 4400000
+36 2E    # vstore 46       # a44 = 4400000;
+13 00 2C # ildc 44         # c[44] = 4500000
+36 2F    # vstore 47       # a45 = 4500000;
+13 00 2D # ildc 45         # c[45] = 4600000
+36 30    # vstore 48       # a46 = 4600000;
+13 00 2E # ildc 46         # c[46] = 4700000
+36 31    # vstore 49       # a47 = 4700000;
+13 00 2F # ildc 47         # c[47] = 4800000
+36 32    # vstore 50       # a48 = 4800000;
+13 00 30 # ildc 48         # c[48] = 4900000
+36 33    # vstore 51       # a49 = 4900000;
+13 00 31 # ildc 49         # c[49] = 5000000
+36 34    # vstore 52       # a50 = 5000000;
+13 00 32 # ildc 50         # c[50] = 5100000
+36 35    # vstore 53       # a51 = 5100000;
+13 00 33 # ildc 51         # c[51] = 5200000
+36 36    # vstore 54       # a52 = 5200000;
+13 00 34 # ildc 52         # c[52] = 5300000
+36 37    # vstore 55       # a53 = 5300000;
+13 00 35 # ildc 53         # c[53] = 5400000
+36 38    # vstore 56       # a54 = 5400000;
+13 00 36 # ildc 54         # c[54] = 5500000
+36 39    # vstore 57       # a55 = 5500000;
+13 00 37 # ildc 55         # c[55] = 5600000
+36 3A    # vstore 58       # a56 = 5600000;
+13 00 38 # ildc 56         # c[56] = 5700000
+36 3B    # vstore 59       # a57 = 5700000;
+13 00 39 # ildc 57         # c[57] = 5800000
+36 3C    # vstore 60       # a58 = 5800000;
+13 00 3A # ildc 58         # c[58] = 5900000
+36 3D    # vstore 61       # a59 = 5900000;
+13 00 3B # ildc 59         # c[59] = 6000000
+36 3E    # vstore 62       # a60 = 6000000;
+13 00 3C # ildc 60         # c[60] = 6100000
+36 3F    # vstore 63       # a61 = 6100000;
+13 00 3D # ildc 61         # c[61] = 6200000
+36 40    # vstore 64       # a62 = 6200000;
+13 00 3E # ildc 62         # c[62] = 6300000
+36 41    # vstore 65       # a63 = 6300000;
+13 00 3F # ildc 63         # c[63] = 6400000
+36 42    # vstore 66       # a64 = 6400000;
+13 00 40 # ildc 64         # c[64] = 6500000
+36 43    # vstore 67       # a65 = 6500000;
+13 00 41 # ildc 65         # c[65] = 6600000
+36 44    # vstore 68       # a66 = 6600000;
+13 00 42 # ildc 66         # c[66] = 6700000
+36 45    # vstore 69       # a67 = 6700000;
+13 00 43 # ildc 67         # c[67] = 6800000
+36 46    # vstore 70       # a68 = 6800000;
+13 00 44 # ildc 68         # c[68] = 6900000
+36 47    # vstore 71       # a69 = 6900000;
+13 00 45 # ildc 69         # c[69] = 7000000
+36 48    # vstore 72       # a70 = 7000000;
+13 00 46 # ildc 70         # c[70] = 7100000
+36 49    # vstore 73       # a71 = 7100000;
+13 00 47 # ildc 71         # c[71] = 7200000
+36 4A    # vstore 74       # a72 = 7200000;
+13 00 48 # ildc 72         # c[72] = 7300000
+36 4B    # vstore 75       # a73 = 7300000;
+13 00 49 # ildc 73         # c[73] = 7400000
+36 4C    # vstore 76       # a74 = 7400000;
+13 00 4A # ildc 74         # c[74] = 7500000
+36 4D    # vstore 77       # a75 = 7500000;
+13 00 4B # ildc 75         # c[75] = 7600000
+36 4E    # vstore 78       # a76 = 7600000;
+13 00 4C # ildc 76         # c[76] = 7700000
+36 4F    # vstore 79       # a77 = 7700000;
+13 00 4D # ildc 77         # c[77] = 7800000
+36 50    # vstore 80       # a78 = 7800000;
+13 00 4E # ildc 78         # c[78] = 7900000
+36 51    # vstore 81       # a79 = 7900000;
+10 0F    # bipush 15       # 15
+36 52    # vstore 82       # i = 15;
+# <03:loop>
+15 52    # vload 82        # i
+10 7A    # bipush 122      # 122
+A4 00 06 # if_icmple +6    # if (i <= 122) goto <04:body>
+A7 01 C4 # goto +452       # goto <05:exit>
+# <04:body>
+15 52    # vload 82        # i
+36 53    # vstore 83       # j = i;
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <06:then>
+A7 00 14 # goto +20        # goto <07:else>
+# <06:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <08:endif>
+# <07:else>
+# <08:endif>
+15 53    # vload 83        # j
+13 00 4F # ildc 79         # c[79] = 10000
+A1 00 06 # if_icmplt +6    # if (j < 10000) goto <09:then>
+A7 00 14 # goto +20        # goto <10:else>
+# <09:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <11:endif>
+# <10:else>
+# <11:endif>
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+A2 00 06 # if_icmpge +6    # if (j >= 1) goto <12:then>
+A7 00 14 # goto +20        # goto <13:else>
+# <12:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <14:endif>
+# <13:else>
+# <14:endif>
+15 53    # vload 83        # j
+13 00 50 # ildc 80         # c[80] = 10000
+A4 00 06 # if_icmple +6    # if (j <= 10000) goto <15:then>
+A7 00 14 # goto +20        # goto <16:else>
+# <15:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <17:endif>
+# <16:else>
+# <17:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A0 00 06 # if_cmpne +6     # if (j != 0) goto <18:then>
+A7 00 14 # goto +20        # goto <19:else>
+# <18:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <20:endif>
+# <19:else>
+# <20:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <21:then>
+A7 00 14 # goto +20        # goto <22:else>
+# <21:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <23:endif>
+# <22:else>
+# <23:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <24:then>
+A7 00 14 # goto +20        # goto <25:else>
+# <24:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <26:endif>
+# <25:else>
+# <26:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <27:then>
+A7 00 14 # goto +20        # goto <28:else>
+# <27:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <29:endif>
+# <28:else>
+# <29:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <30:then>
+A7 00 14 # goto +20        # goto <31:else>
+# <30:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <32:endif>
+# <31:else>
+# <32:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <33:then>
+A7 00 14 # goto +20        # goto <34:else>
+# <33:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <35:endif>
+# <34:else>
+# <35:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <36:then>
+A7 00 14 # goto +20        # goto <37:else>
+# <36:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 00 03 # goto +3         # goto <38:endif>
+# <37:else>
+# <38:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <39:then>
+A7 00 13 # goto +19        # goto <40:else>
+# <39:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 02    # bipush 2        # 2
+78       # ishl            # (j << 2)
+57       # pop             # (ignore result)
+A7 00 03 # goto +3         # goto <41:endif>
+# <40:else>
+# <41:endif>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <42:then>
+A7 00 13 # goto +19        # goto <43:else>
+# <42:then>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 02    # bipush 2        # 2
+7A       # ishr            # (j >> 2)
+57       # pop             # (ignore result)
+A7 00 03 # goto +3         # goto <44:endif>
+# <43:else>
+# <44:endif>
+# <45:loop>
+15 53    # vload 83        # j
+10 00    # bipush 0        # 0
+A3 00 06 # if_icmpgt +6    # if (j > 0) goto <46:body>
+A7 00 14 # goto +20        # goto <47:exit>
+# <46:body>
+15 02    # vload 2         # sum
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 02    # vstore 2        # sum += 1;
+15 53    # vload 83        # j
+10 01    # bipush 1        # 1
+64       # isub            #
+36 53    # vstore 83       # j -= 1;
+A7 FF E8 # goto -24        # goto <45:loop>
+# <47:exit>
+10 01    # bipush 1        # 1
+10 01    # bipush 1        # 1
+9F 00 06 # if_cmpeq +6     # if (1 == 1) goto <48:cond_true>
+A7 00 08 # goto +8         # goto <49:cond_false>
+# <48:cond_true>
+10 01    # bipush 1        # true
+A7 00 05 # goto +5         # goto <50:cond_end>
+# <49:cond_false>
+10 00    # bipush 0        # false
+# <50:cond_end>
+14 00 00 # aldc 0          # s[0] = "savage.c0:164.9-164.22: assert failed"
+CF       # assert          # assert(1 == 1) [failure message on stack]
+15 12    # vload 18        # a16
+10 FF    # bipush -1       # -1
+7E       # iand            # (a16 & -1)
+36 12    # vstore 18       # a16 = (a16 & -1);
+15 14    # vload 20        # a18
+10 00    # bipush 0        # 0
+82       # ixor            # (a18 ^ 0)
+36 14    # vstore 20       # a18 = (a18 ^ 0);
+15 22    # vload 34        # a32
+13 00 51 # ildc 81         # c[81] = 286331153
+80       # ior             # (a32 | 286331153)
+36 22    # vstore 34       # a32 = (a32 | 286331153);
+15 2C    # vload 44        # a42
+15 04    # vload 4         # a2
+70       # irem            # (a42 % a2)
+36 2C    # vstore 44       # a42 = (a42 % a2);
+15 21    # vload 33        # a31
+15 05    # vload 5         # a3
+6C       # idiv            # (a31 / a3)
+36 21    # vstore 33       # a31 = (a31 / a3);
+15 52    # vload 82        # i
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 52    # vstore 82       # i += 1;
+A7 FE 38 # goto -456       # goto <03:loop>
+# <05:exit>
+14 00 26 # aldc 38         # s[38] = "hello\n"
+B7 00 00 # invokenative 0  # print("hello\n")
+57       # pop             # (ignore result)
+14 00 2D # aldc 45         # s[45] = "hello"
+36 52    # vstore 82       # str1 = "hello";
+14 00 33 # aldc 51         # s[51] = "thereasdasdasdasd"
+36 53    # vstore 83       # str2 = "thereasdasdasdasd";
+15 52    # vload 82        # str1
+B7 00 02 # invokenative 2  # string_length(str1)
+B7 00 01 # invokenative 1  # printint(string_length(str1))
+57       # pop             # (ignore result)
+14 00 45 # aldc 69         # s[69] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+15 52    # vload 82        # str1
+15 53    # vload 83        # str2
+B7 00 04 # invokenative 4  # string_join(str1, str2)
+36 54    # vstore 84       # str3 = string_join(str1, str2);
+15 54    # vload 84        # str3
+B7 00 03 # invokenative 3  # println(str3)
+57       # pop             # (ignore result)
+15 52    # vload 82        # str1
+10 00    # bipush 0        # 0
+10 04    # bipush 4        # 4
+B7 00 05 # invokenative 5  # string_sub(str1, 0, 4)
+B7 00 03 # invokenative 3  # println(string_sub(str1, 0, 4))
+57       # pop             # (ignore result)
+15 52    # vload 82        # str1
+15 53    # vload 83        # str2
+B7 00 06 # invokenative 6  # string_compare(str1, str2)
+B7 00 01 # invokenative 1  # printint(string_compare(str1, str2))
+57       # pop             # (ignore result)
+14 00 46 # aldc 70         # s[70] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+10 03    # bipush 3        # 3
+B7 00 07 # invokenative 7  # string_fromint(3)
+B7 00 03 # invokenative 3  # println(string_fromint(3))
+57       # pop             # (ignore result)
+10 01    # bipush 1        # true
+B7 00 08 # invokenative 8  # string_frombool(true)
+B7 00 03 # invokenative 3  # println(string_frombool(true))
+57       # pop             # (ignore result)
+10 63    # bipush 99       # 'c'
+B7 00 09 # invokenative 9  # string_fromchar('c')
+B7 00 03 # invokenative 3  # println(string_fromchar('c'))
+57       # pop             # (ignore result)
+10 06    # bipush 6        # 6
+B8 00 02 # invokestatic 2  # factorial(6)
+B7 00 01 # invokenative 1  # printint(factorial(6))
+57       # pop             # (ignore result)
+15 52    # vload 82        # str1
+B7 00 0A # invokenative 10 # string_to_chararray(str1)
+36 55    # vstore 85       # char_array = string_to_chararray(str1);
+15 55    # vload 85        # char_array
+B7 00 0B # invokenative 11 # string_from_chararray(char_array)
+B7 00 03 # invokenative 3  # println(string_from_chararray(char_array))
+57       # pop             # (ignore result)
+10 41    # bipush 65       # 'A'
+B7 00 0C # invokenative 12 # char_ord('A')
+B7 00 01 # invokenative 1  # printint(char_ord('A'))
+57       # pop             # (ignore result)
+14 00 47 # aldc 71         # s[71] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+10 41    # bipush 65       # 'A'
+B7 00 0C # invokenative 12 # char_ord('A')
+B7 00 0D # invokenative 13 # char_chr(char_ord('A'))
+B7 00 09 # invokenative 9  # string_fromchar(char_chr(char_ord('A')))
+B7 00 03 # invokenative 3  # println(string_fromchar(char_chr(char_ord('A'))))
+57       # pop             # (ignore result)
+14 00 48 # aldc 72         # s[72] = " is the factorial of 6"
+B7 00 03 # invokenative 3  # println(" is the factorial of 6")
+57       # pop             # (ignore result)
+B7 00 0E # invokenative 14 # flush()
+57       # pop             # (ignore result)
+B7 00 0F # invokenative 15 # eof()
+57       # pop             # (ignore result)
+B7 00 10 # invokenative 16 # readline()
+B7 00 03 # invokenative 3  # println(readline())
+57       # pop             # (ignore result)
+14 00 5F # aldc 95         # s[95] = "true"
+B7 00 11 # invokenative 17 # parse_bool("true")
+34       # cmload          # *(parse_bool("true"))
+10 01    # bipush 1        # true
+9F 00 06 # if_cmpeq +6     # if (*(parse_bool("true")) == true) goto <51:then>
+A7 00 0D # goto +13        # goto <52:else>
+# <51:then>
+14 00 64 # aldc 100        # s[100] = "YES"
+B7 00 03 # invokenative 3  # println("YES")
+57       # pop             # (ignore result)
+A7 00 03 # goto +3         # goto <53:endif>
+# <52:else>
+# <53:endif>
+14 00 68 # aldc 104        # s[104] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+14 00 69 # aldc 105        # s[105] = "3"
+10 0A    # bipush 10       # 10
+B7 00 12 # invokenative 18 # parse_int("3", 10)
+2E       # imload          # *(parse_int("3", 10))
+14 00 6B # aldc 107        # s[107] = "9812"
+10 0A    # bipush 10       # 10
+B7 00 12 # invokenative 18 # parse_int("9812", 10)
+2E       # imload          # *(parse_int("9812", 10))
+60       # iadd            # (*(parse_int("3", 10)) + *(parse_int("9812", 10)))
+36 56    # vstore 86       # whatisthis = (*(parse_int("3", 10)) + *(parse_int("9812", 10)));
+15 56    # vload 86        # whatisthis
+B7 00 01 # invokenative 1  # printint(whatisthis)
+57       # pop             # (ignore result)
+14 00 70 # aldc 112        # s[112] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+14 00 71 # aldc 113        # s[113] = "3"
+10 0A    # bipush 10       # 10
+B7 00 12 # invokenative 18 # parse_int("3", 10)
+2E       # imload          # *(parse_int("3", 10))
+B7 00 01 # invokenative 1  # printint(*(parse_int("3", 10)))
+57       # pop             # (ignore result)
+14 00 73 # aldc 115        # s[115] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+15 52    # vload 82        # str1
+B7 00 0A # invokenative 10 # string_to_chararray(str1)
+15 52    # vload 82        # str1
+B7 00 02 # invokenative 2  # string_length(str1)
+B7 00 14 # invokenative 20 # string_terminated(string_to_chararray(str1), string_length(str1))
+B7 00 13 # invokenative 19 # printbool(string_terminated(string_to_chararray(str1), string_length(str1)))
+57       # pop             # (ignore result)
+10 0A    # bipush 10       # 10
+BC 04    # newarray 4      # alloc_array(int, 10)
+36 57    # vstore 87       # test = alloc_array(int, 10);
+15 57    # vload 87        # test
+10 03    # bipush 3        # 3
+63       # aadds           # &test[3]
+10 0A    # bipush 10       # 10
+4E       # imstore         # test[3] = 10;
+BB 20    # new 32          # alloc(struct temp)
+36 58    # vstore 88       # testing = alloc(struct temp);
+15 58    # vload 88        # testing
+62 00    # aaddf 0         # &testing->i
+13 00 52 # ildc 82         # c[82] = 1000
+4E       # imstore         # testing->i = 1000;
+15 58    # vload 88        # testing
+62 04    # aaddf 4         # &testing->c
+10 63    # bipush 99       # 'c'
+55       # cmstore         # testing->c = 'c';
+15 58    # vload 88        # testing
+62 08    # aaddf 8         # &testing->arr_c
+10 0A    # bipush 10       # 10
+BC 01    # newarray 1      # alloc_array(char, 10)
+4F       # amstore         # testing->arr_c = alloc_array(char, 10);
+15 58    # vload 88        # testing
+62 08    # aaddf 8         # &testing->arr_c
+2F       # amload          # testing->arr_c
+10 00    # bipush 0        # 0
+63       # aadds           # &testing->arr_c[0]
+10 63    # bipush 99       # 'c'
+55       # cmstore         # testing->arr_c[0] = 'c';
+15 58    # vload 88        # testing
+62 08    # aaddf 8         # &testing->arr_c
+2F       # amload          # testing->arr_c
+10 01    # bipush 1        # 1
+63       # aadds           # &testing->arr_c[1]
+10 61    # bipush 97       # 'a'
+55       # cmstore         # testing->arr_c[1] = 'a';
+15 58    # vload 88        # testing
+62 08    # aaddf 8         # &testing->arr_c
+2F       # amload          # testing->arr_c
+10 02    # bipush 2        # 2
+63       # aadds           # &testing->arr_c[2]
+10 72    # bipush 114      # 'r'
+55       # cmstore         # testing->arr_c[2] = 'r';
+15 58    # vload 88        # testing
+62 10    # aaddf 16        # &testing->s
+14 00 74 # aldc 116        # s[116] = "hello world!"
+4F       # amstore         # testing->s = "hello world!";
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+10 14    # bipush 20       # 20
+BC 04    # newarray 4      # alloc_array(int, 20)
+4F       # amstore         # testing->arr_i = alloc_array(int, 20);
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+10 00    # bipush 0        # 0
+63       # aadds           # &testing->arr_i[0]
+10 01    # bipush 1        # 1
+4E       # imstore         # testing->arr_i[0] = 1;
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+10 01    # bipush 1        # 1
+63       # aadds           # &testing->arr_i[1]
+10 01    # bipush 1        # 1
+4E       # imstore         # testing->arr_i[1] = 1;
+10 02    # bipush 2        # 2
+36 59    # vstore 89       # i = 2;
+# <54:loop>
+15 59    # vload 89        # i
+10 14    # bipush 20       # 20
+A1 00 06 # if_icmplt +6    # if (i < 20) goto <55:body>
+A7 00 2F # goto +47        # goto <56:exit>
+# <55:body>
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+15 59    # vload 89        # i
+63       # aadds           # &testing->arr_i[i]
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+15 59    # vload 89        # i
+10 01    # bipush 1        # 1
+64       # isub            # (i - 1)
+63       # aadds           # &testing->arr_i[(i - 1)]
+2E       # imload          # testing->arr_i[(i - 1)]
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+15 59    # vload 89        # i
+10 02    # bipush 2        # 2
+64       # isub            # (i - 2)
+63       # aadds           # &testing->arr_i[(i - 2)]
+2E       # imload          # testing->arr_i[(i - 2)]
+60       # iadd            # (testing->arr_i[(i - 1)] + testing->arr_i[(i - 2)])
+4E       # imstore         # testing->arr_i[i] = (testing->arr_i[(i - 1)] + testing->arr_i[(i - 2)]);
+15 59    # vload 89        # i
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 59    # vstore 89       # i += 1;
+A7 FF CD # goto -51        # goto <54:loop>
+# <56:exit>
+15 58    # vload 88        # testing
+62 00    # aaddf 0         # &testing->i
+2E       # imload          # testing->i
+B7 00 01 # invokenative 1  # printint(testing->i)
+57       # pop             # (ignore result)
+14 00 81 # aldc 129        # s[129] = "\nprinting c: "
+B7 00 00 # invokenative 0  # print("\nprinting c: ")
+57       # pop             # (ignore result)
+15 58    # vload 88        # testing
+62 04    # aaddf 4         # &testing->c
+34       # cmload          # testing->c
+B7 00 15 # invokenative 21 # printchar(testing->c)
+57       # pop             # (ignore result)
+14 00 8F # aldc 143        # s[143] = ""
+B7 00 03 # invokenative 3  # println("")
+57       # pop             # (ignore result)
+15 58    # vload 88        # testing
+62 08    # aaddf 8         # &testing->arr_c
+2F       # amload          # testing->arr_c
+B7 00 0B # invokenative 11 # string_from_chararray(testing->arr_c)
+B7 00 03 # invokenative 3  # println(string_from_chararray(testing->arr_c))
+57       # pop             # (ignore result)
+15 58    # vload 88        # testing
+62 10    # aaddf 16        # &testing->s
+2F       # amload          # testing->s
+B7 00 03 # invokenative 3  # println(testing->s)
+57       # pop             # (ignore result)
+14 00 90 # aldc 144        # s[144] = "["
+B7 00 00 # invokenative 0  # print("[")
+57       # pop             # (ignore result)
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+10 00    # bipush 0        # 0
+63       # aadds           # &testing->arr_i[0]
+2E       # imload          # testing->arr_i[0]
+B7 00 01 # invokenative 1  # printint(testing->arr_i[0])
+57       # pop             # (ignore result)
+10 01    # bipush 1        # 1
+36 59    # vstore 89       # i = 1;
+# <57:loop>
+15 59    # vload 89        # i
+10 14    # bipush 20       # 20
+A1 00 06 # if_icmplt +6    # if (i < 20) goto <58:body>
+A7 00 21 # goto +33        # goto <59:exit>
+# <58:body>
+14 00 92 # aldc 146        # s[146] = ", "
+B7 00 00 # invokenative 0  # print(", ")
+57       # pop             # (ignore result)
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+15 59    # vload 89        # i
+63       # aadds           # &testing->arr_i[i]
+2E       # imload          # testing->arr_i[i]
+B7 00 01 # invokenative 1  # printint(testing->arr_i[i])
+57       # pop             # (ignore result)
+15 59    # vload 89        # i
+10 01    # bipush 1        # 1
+60       # iadd            #
+36 59    # vstore 89       # i += 1;
+A7 FF DB # goto -37        # goto <57:loop>
+# <59:exit>
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+13 00 53 # ildc 83         # c[83] = 1000000
+BC 04    # newarray 4      # alloc_array(int, 1000000)
+4F       # amstore         # testing->arr_i = alloc_array(int, 1000000);
+15 58    # vload 88        # testing
+62 18    # aaddf 24        # &testing->arr_i
+2F       # amload          # testing->arr_i
+13 00 54 # ildc 84         # c[84] = 999999
+63       # aadds           # &testing->arr_i[999999]
+13 00 55 # ildc 85         # c[85] = 99999999
+4E       # imstore         # testing->arr_i[999999] = 99999999;
+14 00 95 # aldc 149        # s[149] = "]"
+B7 00 03 # invokenative 3  # println("]")
+57       # pop             # (ignore result)
+15 02    # vload 2         # sum
+B0       # return          #
+
+
+#<test>
+00 01             # number of arguments = 1
+00 01             # number of local variables = 1
+00 06             # code length = 6 bytes
+15 00    # vload 0         # x
+10 01    # bipush 1        # 1
+60       # iadd            # (x + 1)
+B0       # return          #
+
+
+#<factorial>
+00 01             # number of arguments = 1
+00 01             # number of local variables = 1
+00 1C             # code length = 28 bytes
+15 00    # vload 0         # n
+10 00    # bipush 0        # 0
+9F 00 06 # if_cmpeq +6     # if (n == 0) goto <00:then>
+A7 00 09 # goto +9         # goto <01:else>
+# <00:then>
+10 01    # bipush 1        # 1
+B0       # return          #
+A7 00 0F # goto +15        # goto <02:endif>
+# <01:else>
+15 00    # vload 0         # n
+15 00    # vload 0         # n
+10 01    # bipush 1        # 1
+64       # isub            # (n - 1)
+B8 00 02 # invokestatic 2  # factorial((n - 1))
+68       # imul            # (n * factorial((n - 1)))
+B0       # return          #
+# <02:endif>
+
+00 16             # native count
+# native pool
+00 01 00 06       # print
+00 01 00 09       # printint
+00 01 00 65       # string_length
+00 01 00 0A       # println
+00 02 00 64       # string_join
+00 03 00 66       # string_sub
+00 02 00 5E       # string_compare
+00 01 00 63       # string_fromint
+00 01 00 61       # string_frombool
+00 01 00 62       # string_fromchar
+00 01 00 68       # string_to_chararray
+00 01 00 60       # string_from_chararray
+00 01 00 5C       # char_ord
+00 01 00 5B       # char_chr
+00 00 00 05       # flush
+00 00 00 04       # eof
+00 00 00 0B       # readline
+00 01 00 57       # parse_bool
+00 02 00 58       # parse_int
+00 01 00 07       # printbool
+00 02 00 67       # string_terminated
+00 01 00 08       # printchar
+

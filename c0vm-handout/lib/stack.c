@@ -1,7 +1,7 @@
-/* 
+/*
  * Generic stacks
  *
- * 15-122 Principles of Imperative Computation 
+ * 15-122 Principles of Imperative Computation
  */
 
 #include <stdlib.h>
@@ -28,7 +28,7 @@ static inline bool is_stack_segment(list *start, list *end)
   return true;
 }
 
-/* Stacks */ 
+/* Stacks */
 
 typedef struct stack_header stack;
 struct stack_header {

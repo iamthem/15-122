@@ -1,6 +1,6 @@
-/* C0VM abnormal termination 
+/* C0VM abnormal termination
  * 15-122 Principles of Imperative Computation
- * Rob Simmons 
+ * Rob Simmons
  */
 
 #include "c0vm_abort.h"

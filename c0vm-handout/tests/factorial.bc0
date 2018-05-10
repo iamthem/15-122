@@ -1,147 +1,49 @@
 C0 C0 FF EE       # magic number
 00 13             # version 9, arch = 1 (64 bits)
 
-00 02             # int pool count
+00 01             # int pool count
 # int pool
-00 00 15 05
-00 01 86 A0
+00 0F 42 40
 
 00 00             # string pool total size
 # string pool
 
-00 05             # function count
+00 02             # function count
 # function_pool
 
 #<main>
 00 00             # number of arguments = 0
-00 06             # number of local variables = 6
+00 02             # number of local variables = 2
 00 09             # code length = 9 bytes
 10 07    # bipush 7        # 7
-13 00 01 # ildc 1          # c[1] = 100000
-B8 00 04 # invokestatic 4  # power(7, 100000)
-B0       # return          # 
-
-
-#<factorial>
-00 01             # number of arguments = 1
-00 01             # number of local variables = 1
-00 1B             # code length = 27 bytes
-15 00    # vload 0         # n
-10 00    # bipush 0        # 0
-9F 00 06 # if_cmpeq +6     # if (n == 0) goto <00:cond_true>
-A7 00 08 # goto +8         # goto <01:cond_false>
-# <00:cond_true>
-10 01    # bipush 1        # 1
-A7 00 0E # goto +14        # goto <02:cond_end>
-# <01:cond_false>
-15 00    # vload 0         # n
-15 00    # vload 0         # n
-10 01    # bipush 1        # 1
-64       # isub            # (n - 1)
-B8 00 01 # invokestatic 1  # factorial((n - 1))
-68       # imul            # (n * factorial((n - 1)))
-# <02:cond_end>
-B0       # return          # 
-
-
-#<test>
-00 02             # number of arguments = 2
-00 04             # number of local variables = 4
-00 14             # code length = 20 bytes
-15 01    # vload 1         # a
-15 00    # vload 0         # n
-60       # iadd            # (a + n)
-36 02    # vstore 2        # c = (a + n);
-15 01    # vload 1         # a
-15 00    # vload 0         # n
-6C       # idiv            # (a / n)
-36 03    # vstore 3        # d = (a / n);
-15 03    # vload 3         # d
-15 02    # vload 2         # c
-68       # imul            # (d * c)
-B0       # return          # 
-
-
-#<hash>
-00 01             # number of arguments = 1
-00 06             # number of local variables = 6
-00 56             # code length = 86 bytes
-15 00    # vload 0         # x
-B7 00 00 # invokenative 0  # string_length(x)
-36 01    # vstore 1        # len = string_length(x);
-15 01    # vload 1         # len
-10 00    # bipush 0        # 0
-9F 00 06 # if_cmpeq +6     # if (len == 0) goto <03:then>
-A7 00 09 # goto +9         # goto <04:else>
-# <03:then>
-10 00    # bipush 0        # 0
-B0       # return          # 
-A7 00 03 # goto +3         # goto <05:endif>
-# <04:else>
-# <05:endif>
-15 00    # vload 0         # x
-B7 00 01 # invokenative 1  # string_to_chararray(x)
-36 02    # vstore 2        # char_arr = string_to_chararray(x);
-13 00 00 # ildc 0          # c[0] = 5381
-36 03    # vstore 3        # result = 5381;
-10 00    # bipush 0        # 0
-36 04    # vstore 4        # i = 0;
-# <06:loop>
-15 04    # vload 4         # i
-15 01    # vload 1         # len
-A1 00 06 # if_icmplt +6    # if (i < len) goto <07:body>
-A7 00 25 # goto +37        # goto <08:exit>
-# <07:body>
-15 02    # vload 2         # char_arr
-15 04    # vload 4         # i
-63       # aadds           # &char_arr[i]
-34       # cmload          # char_arr[i]
-B7 00 02 # invokenative 2  # char_ord(char_arr[i])
-36 05    # vstore 5        # c = char_ord(char_arr[i]);
-15 03    # vload 3         # result
-10 05    # bipush 5        # 5
-78       # ishl            # (result << 5)
-15 03    # vload 3         # result
-60       # iadd            # ((result << 5) + result)
-15 05    # vload 5         # c
-60       # iadd            # (((result << 5) + result) + c)
-36 03    # vstore 3        # result = (((result << 5) + result) + c);
-15 04    # vload 4         # i
-10 01    # bipush 1        # 1
-60       # iadd            # 
-36 04    # vstore 4        # i += 1;
-A7 FF D7 # goto -41        # goto <06:loop>
-# <08:exit>
-15 03    # vload 3         # result
+13 00 00 # ildc 0          # c[0] = 1000000
+B8 00 01 # invokestatic 1  # power(7, 1000000)
 B0       # return          # 
 
 
 #<power>
 00 02             # number of arguments = 2
-00 06             # number of local variables = 6
+00 02             # number of local variables = 2
 00 1E             # code length = 30 bytes
 15 01    # vload 1         # n
 10 00    # bipush 0        # 0
-9F 00 06 # if_cmpeq +6     # if (n == 0) goto <09:then>
-A7 00 09 # goto +9         # goto <10:else>
-# <09:then>
+9F 00 06 # if_cmpeq +6     # if (n == 0) goto <00:then>
+A7 00 09 # goto +9         # goto <01:else>
+# <00:then>
 10 01    # bipush 1        # 1
 B0       # return          # 
-A7 00 11 # goto +17        # goto <11:endif>
-# <10:else>
+A7 00 11 # goto +17        # goto <02:endif>
+# <01:else>
 15 00    # vload 0         # x
 15 00    # vload 0         # x
 15 01    # vload 1         # n
 10 01    # bipush 1        # 1
 64       # isub            # (n - 1)
-B8 00 04 # invokestatic 4  # power(x, (n - 1))
+B8 00 01 # invokestatic 1  # power(x, (n - 1))
 68       # imul            # (x * power(x, (n - 1)))
 B0       # return          # 
-# <11:endif>
+# <02:endif>
 
-00 03             # native count
+00 00             # native count
 # native pool
-00 01 00 65       # string_length
-00 01 00 68       # string_to_chararray
-00 01 00 5C       # char_ord
 

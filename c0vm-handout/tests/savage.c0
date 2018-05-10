@@ -1,0 +1,236 @@
+#use <string>
+#use <conio>
+#use <parse>
+
+struct temp {
+    int i;
+    char c;
+    char[] arr_c;
+    string s;
+    int[] arr_i;
+};
+
+int test(int x) {
+    return x+1;
+}
+
+int factorial(int n) {
+    if (n == 0) return 1;
+    else return n * factorial(n-1);
+}
+
+int main () {
+    int asdasdas = 8;
+    int a0 = test(2);
+    int sum = 0;
+    int a1 = 100000;
+    int a2 = 200000;
+    int a3 = 300000;
+    int a4 = 400000;
+    int a5 = 500000;
+    int a6 = 600000;
+    int a7 = 700000;
+    int a8 = 800000;
+    int a9 = 900000;
+    int a10 = 1000000;
+    int a11 = 1100000;
+    int a12 = 1200000;
+    int a13 = 1300000;
+    int a14 = 1400000;
+    int a15 = 1500000;
+    int a16 = 1600000;
+    int a17 = 1700000;
+    int a18 = 1800000;
+    int a19 = 1900000;
+    int a20 = 2000000;
+    int a21 = 2100000;
+    int a22 = 2200000;
+    int a23 = 2300000;
+    int a24 = 2400000;
+    int a25 = 2500000;
+    int a26 = 2600000;
+    int a27 = 2700000;
+    int a28 = 2800000;
+    int a29 = 2900000;
+    int a30 = 3000000;
+    int a31 = 3100000;
+    int a32 = 3200000;
+    int a33 = 3300000;
+    int a34 = 3400000;
+    int a35 = 3500000;
+    int a36 = 3600000;
+    int a37 = 3700000;
+    int a38 = 3800000;
+    int a39 = 3900000;
+    int a40 = 4000000;
+    int a41 = 4100000;
+    int a42 = 4200000;
+    int a43 = 4300000;
+    int a44 = 4400000;
+    int a45 = 4500000;
+    int a46 = 4600000;
+    int a47 = 4700000;
+    int a48 = 4800000;
+    int a49 = 4900000;
+    int a50 = 5000000;
+    int a51 = 5100000;
+    int a52 = 5200000;
+    int a53 = 5300000;
+    int a54 = 5400000;
+    int a55 = 5500000;
+    int a56 = 5600000;
+    int a57 = 5700000;
+    int a58 = 5800000;
+    int a59 = 5900000;
+    int a60 = 6000000;
+    int a61 = 6100000;
+    int a62 = 6200000;
+    int a63 = 6300000;
+    int a64 = 6400000;
+    int a65 = 6500000;
+    int a66 = 6600000;
+    int a67 = 6700000;
+    int a68 = 6800000;
+    int a69 = 6900000;
+    int a70 = 7000000;
+    int a71 = 7100000;
+    int a72 = 7200000;
+    int a73 = 7300000;
+    int a74 = 7400000;
+    int a75 = 7500000;
+    int a76 = 7600000;
+    int a77 = 7700000;
+    int a78 = 7800000;
+    int a79 = 7900000;
+
+    for (int i = 15; i <= 122; i++) {
+        int j = i;
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j < 10000) {
+            sum += 1;
+            j--;
+        }
+        if (j >= 1) {
+            sum += 1;
+            j--;
+        }
+        if (j <= 10000) {
+            sum += 1;
+            j--;
+        }
+        if (j != 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j--;
+        }
+        if (j > 0) {
+            sum += 1;
+            j<<2;
+        }
+        if (j > 0) {
+            sum += 1;
+            j>>2;
+        }
+        while (j > 0) {
+            sum += 1;
+            j--;
+        }
+        assert(1==1);
+        a16 = a16&0xFFFFFFFF;
+        a18 = a18^0x00000000;
+        a32 = a32|0x11111111;
+        a42 = a42%a2;
+        a31 = a31/a3;
+    }
+
+    print("hello\n");
+    string str1 = "hello";
+    string str2 = "thereasdasdasdasd";
+    printint(string_length(str1));
+    println("");
+    string str3 = string_join(str1, str2);
+    println(str3);
+    println(string_sub(str1, 0, 4));
+    printint(string_compare(str1, str2));
+    println("");
+    println(string_fromint(3));
+    println(string_frombool(true));
+    println(string_fromchar('c'));
+    printint(factorial(6));
+    char[] char_array = string_to_chararray(str1);
+    println(string_from_chararray(char_array));
+    printint(char_ord('A'));
+    println("");
+    println(string_fromchar(char_chr(char_ord('A'))));
+    println(" is the factorial of 6");
+    flush();
+    eof();
+    println(readline());
+    if(*parse_bool("true")) println("YES");
+    println("");
+    int whatisthis = *parse_int("3", 10) + *parse_int("9812", 10);
+    printint(whatisthis);
+    println("");
+    printint(*parse_int("3", 10));
+    println("");
+    printbool(string_terminated(string_to_chararray(str1), string_length(str1)));
+    int[] test = alloc_array(int, 10);
+    test[3] = 10;
+    struct temp *testing = alloc(struct temp);
+    testing->i = 1000;
+    testing->c = 'c';
+    testing->arr_c = alloc_array(char, 10);
+    testing->arr_c[0] = 'c';
+    testing->arr_c[1] = 'a';
+    testing->arr_c[2] = 'r';
+    testing->s = "hello world!";
+    testing->arr_i = alloc_array(int, 20);
+    testing->arr_i[0] = 1;
+    testing->arr_i[1] = 1;
+    for (int i = 2; i < 20; i++) {
+        testing->arr_i[i] = testing->arr_i[i-1] + testing->arr_i[i-2];
+    }
+    printint(testing->i);
+    print("\nprinting c: ");
+    printchar(testing->c);
+    println("");
+    println(string_from_chararray(testing->arr_c));
+    println(testing->s);
+    print("[");
+    printint(testing->arr_i[0]);
+    for (int i = 1; i < 20; i++) {
+        print(", ");
+        printint(testing->arr_i[i]);
+    }
+    testing->arr_i = alloc_array(int, 1000000);
+    testing->arr_i[999999] = 99999999;
+    println("]");
+
+    return sum;
+}

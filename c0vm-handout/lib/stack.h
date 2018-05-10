@@ -1,7 +1,7 @@
 /*
  * Interface for generic stacks
  * You'll want to use these to implement call stacks
- * 
+ *
  * We can't call these stack_t because there's a type in the C
  * standard libraries named stack_t, ugh.
  *
@@ -34,7 +34,7 @@ bool stack_empty(gstack_t S)
 gstack_t stack_new()
   /*@ensures \result != NULL; @*/ ;
 
-void push(gstack_t S, stack_elem x) 
+void push(gstack_t S, stack_elem x)
   /*@requires S != NULL; @*/ ;
 
 stack_elem pop(gstack_t S)
@@ -44,7 +44,7 @@ size_t stack_size(gstack_t S)
   /*@requires S != NULL; */ ;
 
 void stack_free(gstack_t S, stack_elem_free_fn* elem_free)
-  /*@requires S != NULL; @*/ 
+  /*@requires S != NULL; @*/
   /* if elem_free is NULL, then elements will not be freed */ ;
 
 #endif

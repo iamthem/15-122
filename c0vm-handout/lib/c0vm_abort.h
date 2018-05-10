@@ -1,6 +1,6 @@
-/* C0VM abnormal termination 
+/* C0VM abnormal termination
  * 15-122 Principles of Imperative Computation
- * Rob Simmons 
+ * Rob Simmons
  */
 
 void c0_user_error(char *err);        // for calls to error() in C0

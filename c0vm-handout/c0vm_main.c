@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
   struct bc0_file *bc0 = read_program(argv[1]);
   uint16_t vers = bc0->version >> 1;
   if (BYTECODE_VERSION != vers) {
-    fprintf(stderr, "Error: implementation version %u != code version %u\n", 
+    fprintf(stderr, "Error: implementation version %u != code version %u\n",
             BYTECODE_VERSION, vers);
     exit(EXIT_FAILURE);
   }

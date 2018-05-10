@@ -21,15 +21,15 @@ typedef uint8_t ubyte;
 struct bc0_file {
   uint32_t magic;
   uint16_t version;
-  
+
   /* integer and string constant pools */
   uint16_t int_count;
   int32_t *int_pool;
-  
+
   /* string pool stores all strings consecutively with NUL terminators */
   uint16_t string_count;
   char *string_pool;
-  
+
   /* bytecode and native function tables */
   uint16_t function_count;
   struct function_info *function_pool;
@@ -55,7 +55,7 @@ struct native_info {
 enum c0_val_kind { C0_INTEGER, C0_POINTER };
 
 typedef struct c0_value {
-  enum c0_val_kind kind; 
+  enum c0_val_kind kind;
   union {
     int32_t i;
     void *p;
@@ -83,13 +83,13 @@ static inline c0_value ptr2val(void *p) {
 }
 
 static inline void *val2ptr(c0_value v) {
-  if (v.kind != C0_POINTER) 
+  if (v.kind != C0_POINTER)
     c0_memory_error("Invalid cast from c0_value (an integer) to a pointer");
   return v.payload.p;
 }
 
 static inline bool val_equal(c0_value v1, c0_value v2) {
-  return v1.kind == v2.kind && (v1.kind == C0_INTEGER 
+  return v1.kind == v2.kind && (v1.kind == C0_INTEGER
                                 ? val2int(v1) == val2int(v2)
                                 : val2ptr(v1) == val2ptr(v2));
 }

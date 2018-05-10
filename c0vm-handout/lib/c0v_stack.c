@@ -1,7 +1,7 @@
-/* 
+/*
  * Interface for stacks of type c0_value, specifically
  *
- * 15-122 Principles of Imperative Computation 
+ * 15-122 Principles of Imperative Computation
  */
 
 #include <stdlib.h>
@@ -29,7 +29,7 @@ static inline bool is_stack_segment(list *start, list *end)
   return true;
 }
 
-/* Stacks */ 
+/* Stacks */
 
 typedef struct c0v_stack_header stack;
 struct c0v_stack_header {

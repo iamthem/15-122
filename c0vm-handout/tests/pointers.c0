@@ -1,0 +1,27 @@
+#use <conio>
+
+struct test {
+  int int0;
+  int int1;
+  char* character;
+};
+
+int main() {
+  int* x = alloc(int);
+  *x = 3;
+  printint(*x);
+  int** y = alloc(int*);
+  *y = x;
+  printint(**y);
+  /*char* c = alloc(char);
+  *c = '\n';
+  printchar(*c);
+  struct test *T = alloc(struct test);
+  T->int0 = 1;
+  T->int1 = 4;
+  T->character = c;
+  printint(T->int0);
+  printint(T->int1);
+  printchar(*T->character);*/
+  return 0;
+}

@@ -417,7 +417,8 @@ int execute(struct bc0_file *bc0) {
     case ATHROW:
     {
         pc++;
-        c0_user_error((char*)pop_ptr(S)); break;
+        c0_user_error((char*)pop_ptr(S));
+        break;
     }
 
     case ASSERT:
@@ -452,11 +453,12 @@ int execute(struct bc0_file *bc0) {
         struct function_info f = bc0->function_pool[index];
         int len = (int) f.num_vars;
         int numargs = (int) f.num_args;
+
         V = xmalloc(sizeof(c0_value) * len);
+
         for (int i = numargs-1; i >= 0; i--) {
             V[i] = c0v_pop(S);
         }
-
 
         //Create new empty operand stack
         S = c0v_stack_new();
@@ -481,6 +483,7 @@ int execute(struct bc0_file *bc0) {
 
         //Make array of c0_values
         int len = (int) bc0->native_pool[index].num_args;
+
         c0_value A [len];
         for (int i = len-1; i >= 0; i--) {
             A[i] = c0v_pop(S);
@@ -493,8 +496,8 @@ int execute(struct bc0_file *bc0) {
         c0_value result = (*native_function_table[function_index])(A);
         c0v_push(S, result);
         pc++;
-        printf("Opcode %x -- Stack size: %zu -- PC: %zu\n",
-                P[pc], c0v_stack_size(S), pc);
+       // printf("Opcode %x -- Stack size: %zu -- PC: %zu\n",
+       //         P[pc], c0v_stack_size(S), pc);
         break;
     }
 
